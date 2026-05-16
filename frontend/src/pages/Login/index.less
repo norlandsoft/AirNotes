@@ -1,23 +1,99 @@
-.air-login-container {
+.air-login-page {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #f7f6f3;
+}
 
-  .air-login-card {
-    width: 360px;
-    padding: 40px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+.air-login-card {
+  width: 380px;
+  padding: 48px 40px 40px;
+  background: #fff;
+  border: 1px solid #e5e4e0;
+  border-radius: 3px;
+}
+
+.air-login-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.air-login-title {
+  font-family: var(--font-family);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.air-login-divider {
+  height: 1px;
+  background: #e5e4e0;
+  margin: 24px 0 28px;
+}
+
+.air-login-form {
+  .ant-form-item {
+    margin-bottom: 20px;
+
+    &:last-child {
+      margin-bottom: 0;
+      margin-top: 28px;
+    }
   }
 
-  .air-login-title {
-    text-align: center;
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 32px;
+  .ant-input-affix-wrapper,
+  .ant-input {
+    height: 44px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-family: var(--font-family);
+    font-size: 0.95rem;
     color: #333;
+
+    &:hover {
+      border-color: #bbb;
+    }
+
+    &:focus,
+    &-focused {
+      border-color: #555 !important;
+      box-shadow: none !important;
+    }
+  }
+
+  .ant-input-prefix,
+  .ant-input-suffix {
+    color: #999;
+  }
+}
+
+.air-login-btn {
+  height: 44px;
+  font-family: var(--font-family);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  background: #1a1a1a;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: #333 !important;
+  }
+
+  &:active {
+    background: #000 !important;
+  }
+
+  &:disabled {
+    background: #999 !important;
   }
 }
