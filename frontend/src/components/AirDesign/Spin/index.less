@@ -1,0 +1,41 @@
+/**
+ * Spin 组件样式
+ * 三个圆点依次弹跳的加载动画
+ * Created by ChaiMingXu 2026/05/02
+ */
+
+.air-spin {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 8px 0;
+}
+
+.air-spin-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.air-spin-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #999;
+  animation: airSpinBounce 1.4s infinite ease-in-out both;
+
+  &:nth-child(1) { animation-delay: 0s; }
+  &:nth-child(2) { animation-delay: 0.2s; }
+  &:nth-child(3) { animation-delay: 0.4s; }
+}
+
+.air-spin-label {
+  font-size: var(--text-sm, 0.875rem);
+  color: #999;
+}
+
+@keyframes airSpinBounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}

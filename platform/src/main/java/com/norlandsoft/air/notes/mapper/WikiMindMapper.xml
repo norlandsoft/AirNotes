@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.norlandsoft.air.notes.mapper.WikiMindMapper">
+
+  <resultMap id="MindNodeResultMap" type="com.norlandsoft.air.notes.model.entity.WikiMindNode">
+    <id column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="value" property="value" jdbcType="VARCHAR"/>
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+    <result column="document_id" property="documentId" jdbcType="VARCHAR"/>
+    <result column="level" property="level" jdbcType="INTEGER"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, value, parent_id, document_id, level
+  </sql>
+
+  <insert id="insert" parameterType="com.norlandsoft.air.notes.model.entity.WikiMindNode">
+    INSERT INTO wiki_mind_content (id, value, parent_id, document_id, level)
+    VALUES (#{id}, #{value}, #{parentId}, #{documentId}, #{level})
+  </insert>
+
+  <insert id="insertOrUpdate" parameterType="com.norlandsoft.air.notes.model.entity.WikiMindNode">
+    INSERT INTO wiki_mind_content (id, value, parent_id, document_id, level)
+    VALUES (#{id}, #{value}, #{parentId}, #{documentId}, #{level})
+    ON CONFLICT (id) DO UPDATE SET
+      value = EXCLUDED.value,
+      parent_id = EXCLUDED.parent_id,
+      document_id = EXCLUDED.document_id,
+      level = EXCLUDED.level
+  </insert>
+
+  <delete id="deleteByDocumentId">
+    DELETE FROM wiki_mind_content WHERE document_id = #{documentId}
+  </delete>
+
+  <select id="selectByDocumentId" resultMap="MindNodeResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    FROM wiki_mind_content
+    WHERE document_id = #{documentId}
+  </select>
+
+</mapper>

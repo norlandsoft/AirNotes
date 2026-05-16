@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.norlandsoft.air.notes.mapper.WikiDocMapper">
+
+  <resultMap id="DocResultMap" type="com.norlandsoft.air.notes.model.entity.WikiDocument">
+    <id column="id" property="id" jdbcType="VARCHAR"/>
+    <result column="title" property="title" jdbcType="VARCHAR"/>
+    <result column="icon" property="icon" jdbcType="VARCHAR"/>
+    <result column="space" property="space" jdbcType="VARCHAR"/>
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR"/>
+    <result column="format" property="format" jdbcType="VARCHAR"/>
+    <result column="file_type" property="fileType" jdbcType="VARCHAR"/>
+    <result column="content" property="content" jdbcType="VARCHAR"/>
+    <result column="sort_order" property="sortOrder" jdbcType="INTEGER"/>
+    <result column="status" property="status" jdbcType="VARCHAR"/>
+    <result column="creator_id" property="creatorId" jdbcType="VARCHAR"/>
+    <result column="creator_name" property="creatorName" jdbcType="VARCHAR"/>
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+
+  <resultMap id="BreadCrumbResultMap" type="com.norlandsoft.air.notes.model.entity.WikiDocument$BreadCrumbItem">
+    <result column="key" property="key" jdbcType="VARCHAR"/>
+    <result column="label" property="label" jdbcType="VARCHAR"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, title, icon, space, parent_id, format, file_type, content, sort_order,
+    status, creator_id, creator_name, create_time, update_time
+  </sql>
+
+  <insert id="insert" parameterType="com.norlandsoft.air.notes.model.entity.WikiDocument">
+    INSERT INTO wiki_doc_content (
+      id, title, icon, space, parent_id, format, file_type, content, sort_order,
+      status, creator_id, creator_name, create_time, update_time
+    ) VALUES (
+      #{id}, #{title}, #{icon}, #{space}, #{parentId}, #{format}, #{fileType},
+      #{content}, #{sortOrder}, #{status}, #{creatorId}, #{creatorName},
+      #{createTime}, #{updateTime}
+    )
+  </insert>
+
+  <update id="update" parameterType="com.norlandsoft.air.notes.model.entity.WikiDocument">
+    UPDATE wiki_doc_content
+    <set>
+      <if test="title != null">
+        title = #{title},
+      </if>
+      <if test="icon != null">
+        icon = #{icon},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId},
+      </if>
+      <if test="content != null">
+        content = #{content},
+      </if>
+      <if test="sortOrder != null">
+        sort_order = #{sortOrder},
+      </if>
+      update_time = CURRENT_TIMESTAMP
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <select id="selectById" resultMap="DocResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    FROM wiki_doc_content
+    WHERE id = #{id}
+  </select>
+
+  <delete id="deleteById">
+    DELETE FROM wiki_doc_content WHERE id = #{id}
+  </delete>
+
+  <select id="selectMenuItems" resultMap="DocResultMap">
+    SELECT <include refid="Base_Column_List"/>
+    FROM wiki_doc_content
+    WHERE space = #{space}
+    ORDER BY sort_order ASC, create_time ASC
+  </select>
+
+  <select id="selectBreadCrumb" resultMap="BreadCrumbResultMap">
+    WITH RECURSIVE breadcrumb AS (
+      SELECT id, title, parent_id, 1 AS level
+      FROM wiki_doc_content
+      WHERE id = #{id}
+      UNION ALL
+      SELECT t.id, t.title, t.parent_id, b.level + 1
+      FROM wiki_doc_content t
+      INNER JOIN breadcrumb b ON t.id = b.parent_id
+    )
+    SELECT id AS key, title AS label
+    FROM breadcrumb
+    ORDER BY level DESC
+  </select>
+
+</mapper>

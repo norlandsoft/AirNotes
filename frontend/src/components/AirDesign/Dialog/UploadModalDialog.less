@@ -1,0 +1,58 @@
+.ant-upload-wrapper {
+  .ant-upload {
+    .ant-upload-select {
+      position: relative;
+    }
+
+    .ant-upload-btn {
+      padding: 0;
+    }
+
+    .ant-upload-drag-container {
+      .ant-upload-drag-container-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .ant-upload-drag-container-content-text {
+        font-size: 0.95rem;
+        font-family: var(--font-family-code);
+      }
+    }
+  }
+
+  .ant-upload-drag {
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+
+    &:hover {
+      border-color: var(--primary-color) !important;
+    }
+  }
+
+  .ant-upload-list {
+    position: relative;
+    height: var(--upload-list-height, 220px); /* 使用CSS变量，默认值为220px */
+    border: var(--upload-list-border, 'none');
+    border-radius: 3px;
+    overflow: auto;
+    margin: 12px 0;
+
+    border: 1px solid #e8e8e8;
+    border-radius: 3px;
+
+    .ant-upload-list-item {
+      height: 40px;
+      padding: 0 12px;
+      margin: 0;
+      font-family: var(--font-family-code);
+      font-size: 0.9rem;
+
+      .ant-upload-list-item-name {
+        cursor: default;
+      }
+    }
+  }
+}

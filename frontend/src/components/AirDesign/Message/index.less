@@ -1,0 +1,77 @@
+/**
+ * Message 轻提示样式
+ * 用于页面顶部居中的 info / success / error / warning 提示
+ */
+
+.air-message-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: 80vw;
+}
+
+.air-message-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 360px;
+  min-height: 40px;
+  padding: 4px 16px;
+  font-size: 0.9rem;
+  font-weight: 450;
+  color: rgba(0, 0, 0, 0.9);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08),
+  0 3px 6px -4px rgba(0, 0, 0, 0.12),
+  0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+  user-select: none;
+  animation: air-message-fade-in 0.32s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.air-message-item__icon {
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+
+.air-message-item__content {
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.air-message-item--info .air-message-item__icon {
+  color: #1677ff;
+}
+
+.air-message-item--success .air-message-item__icon {
+  color: #52c41a;
+}
+
+.air-message-item--error .air-message-item__icon {
+  color: #ff4d4f;
+}
+
+.air-message-item--warning .air-message-item__icon {
+  color: #faad14;
+}
+
+@keyframes air-message-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

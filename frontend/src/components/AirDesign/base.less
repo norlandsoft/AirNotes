@@ -1,0 +1,133 @@
+/**
+ * AirDesign 基础样式：字体嵌入与 CSS 变量
+ * Space Grotesk（界面）、JetBrains Mono（代码），字体文件内置于 dist/fonts，无需 HTTP 请求
+ * Created by ChaiMingXu
+ */
+
+/* Space Grotesk */
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('./fonts/space-grotesk-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+  U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url('./fonts/space-grotesk-latin-500-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+  U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url('./fonts/space-grotesk-latin-600-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+  U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Space Grotesk';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url('./fonts/space-grotesk-latin-700-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+  U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* JetBrains Mono */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('./fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+  U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url('./fonts/jetbrains-mono-latin-500-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+  U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 设计令牌：所有加载 AirDesign 的前端统一使用 */
+:root {
+  /* 字体 */
+  --font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-code: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, monospace;
+  --font-family-base: var(--font-family);
+
+  /* 主色与透明度阶梯 */
+  --color-base: #123f68;
+  --color-100: rgba(16, 63, 104, 0.1);
+  --color-200: rgba(16, 63, 104, 0.2);
+  --color-300: rgba(16, 63, 104, 0.3);
+  --color-400: rgba(16, 63, 104, 0.4);
+  --color-500: rgba(16, 63, 104, 0.5);
+  --color-600: rgba(16, 63, 104, 0.6);
+  --color-700: rgba(16, 63, 104, 0.7);
+  --color-800: rgba(16, 63, 104, 0.8);
+  --color-900: rgba(16, 63, 104, 0.9);
+
+  --primary-color: var(--color-base);
+  --primary-border: 1px solid #1565c0;
+  --panel-border: 1px solid #ddd;
+
+  /* 布局 */
+  --item-height: 36px;
+  --border-radius: 3px;
+
+  /* 字号 */
+  --base-font-size: 16px;
+  --font-scale: 1;
+  --effective-base: calc(var(--base-font-size) * var(--font-scale));
+  --font-size: 1rem;
+  --font-size-form: 0.9rem;
+
+  /* 字号阶梯 (rem) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+}
+
+/* 根元素字号，1rem = --effective-base */
+html {
+  font-size: var(--effective-base);
+}
+
+/* 所有加载 AirDesign 的前端，body 默认样式 */
+body {
+  font-family: var(--font-family);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}

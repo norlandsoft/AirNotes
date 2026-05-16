@@ -1,0 +1,60 @@
+.air-wiki-frame-container {
+  .air-wiki-frame-nav {
+    display: flex;
+    // 垂直排列
+    flex-direction: column;
+
+    .air-wiki-frame-space-name {
+      display: flex;
+      align-items: center;
+
+      .air-wiki-frame-space-name-inner {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        line-height: 40px;
+        margin: 8px 6px 0 6px;
+        padding: 0 6px;
+        gap: 8px;
+        border-radius: 5px;
+        font-size: 1.05rem;
+        font-weight: 500;
+        // 禁止换行
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #f5f5f5;
+        }
+      }
+    }
+
+    // 自定义垂直滚动条样式，去除边框，提升美观性
+    &::-webkit-scrollbar {
+      width: 8px;
+      background: transparent; // 背景透明
+      border: none; // 取消边框
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #e0e0e0; // 滚动条颜色
+      border-radius: 4px;
+      border: none; // 取消边框
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent; // 轨道透明
+      border: none; // 取消边框
+    }
+
+    // 兼容 Firefox
+    scrollbar-width: thin;
+    scrollbar-color: #e0e0e0 transparent;
+  }
+
+  .air-wiki-frame-content {
+    overflow: auto;
+  }
+}

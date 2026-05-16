@@ -1,0 +1,232 @@
+.air-rich-editor-wrapper {
+
+  .air-rich-editor-toolbar {
+    padding: 0 8px;
+    height: 40px;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-bottom: 1px solid #e0e0e0;
+    // 固定在父元素上部
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .air-rich-editor-title {
+    display: flex;
+    align-items: center;
+    font-family: var(--font-family);
+    font-size: 2rem;
+    font-weight: normal;
+
+    input {
+      font-size: 2rem;
+      font-weight: normal;
+      border: none;
+      border-radius: 0;
+      outline: none;
+      padding: 0;
+      height: 40px;
+      margin: 20px 0 10px 0;
+      font-family: var(--font-family);
+
+      &:focus {
+        border: none;
+        outline: none;
+        box-shadow: none;
+      }
+
+      &::placeholder {
+        color: #ccc;
+      }
+
+      &:disabled {
+        color: #000;
+        background-color: transparent;
+        cursor: default;
+      }
+    }
+  }
+
+  .air-rich-editor-meta {
+    height: 40px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .air-rich-editor {
+    overflow: auto;
+    border-radius: 3px;
+
+    .ProseMirror {
+      line-height: 1.8;
+      height: 100%;
+      overflow: auto;
+      outline: none;
+      font-family: var(--font-family);
+      font-size: 0.95rem;
+
+      code {
+        background-color: #efefef;
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-size: 0.85rem;
+        font-family: var(--font-family);
+      }
+
+      ul {
+        padding-left: 1.5em;
+        list-style-type: disc;
+        line-height: 1.5;
+
+        li {
+          margin: 0.5em 0;
+          line-height: 1.5;
+        }
+
+        code {
+          font-family: var(--font-family);
+        }
+      }
+
+      ol {
+        padding-left: 1.5em;
+        list-style-type: decimal;
+        line-height: 1.5;
+
+        li {
+          margin: 0.5em 0;
+        }
+      }
+
+      hr {
+        margin: 24px 0;
+        border: none;
+        border-top: 1px solid #e0e0e0;
+      }
+
+      // 任务列表样式
+      ul[data-type="taskList"] {
+        list-style: none;
+        padding: 0;
+
+        li {
+          display: flex;
+          align-items: flex-start;
+          margin: 0.5em 0;
+
+          > label {
+            margin-right: 0.5em;
+            user-select: none;
+          }
+
+          > div {
+            flex: 1;
+
+            > p {
+              margin: 0;
+            }
+          }
+
+          input[type="checkbox"] {
+            cursor: pointer;
+          }
+        }
+      }
+
+      // 代码块样式
+      pre {
+        background: #f5f5f5;
+        border-radius: 4px;
+        padding: 12px 16px;
+        margin: 16px 0;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        line-height: 1.5;
+        white-space: pre;
+        overflow-y: hidden;
+
+        code {
+          color: #333;
+          background: none;
+          padding: 0;
+          border-radius: 0;
+          white-space: pre;
+          word-wrap: normal;
+          word-break: keep-all;
+          font-family: var(--font-family);
+        }
+      }
+
+      // 引用样式
+      blockquote {
+        margin: 16px 0;
+        padding: 16px;
+        border-left: 4px solid #e0e0e0;
+        background-color: #f5f5f5;
+        color: #666;
+        font-style: italic;
+
+        // 嵌套引用的样式
+        blockquote {
+          margin-left: 16px;
+          border-left-color: #ccc;
+        }
+
+        // 引用块内的段落样式
+        p {
+          margin: 8px 0;
+        }
+      }
+
+      // 表格样式
+      table {
+        border-collapse: collapse;
+        margin: 0;
+        overflow: hidden;
+        table-layout: fixed;
+        width: 100%;
+      }
+
+      td, th {
+        border: 1px solid #000;
+        box-sizing: border-box;
+        min-width: 1em;
+        padding: 3px 5px;
+        position: relative;
+        vertical-align: top;
+
+        > * {
+          margin-bottom: 0;
+        }
+      }
+
+      th {
+        background-color: #f1f3f5;
+        font-weight: bold;
+        text-align: left;
+      }
+
+      // 设置滚动条样式
+      &::-webkit-scrollbar {
+        width: 10px; // 垂直滚动条宽度
+        height: 10px; // 水平滚动条高度
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #fafafa;
+        border: 1px solid #f1f2f3; // 滚动条轨道边框颜色
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 4px;
+        border: 1px solid #e0e0e0; // 滚动条滑块边框颜色
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+    }
+  }
+}

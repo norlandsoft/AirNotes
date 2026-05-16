@@ -1,0 +1,28 @@
+.air-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: #eee;
+    cursor: pointer;
+    border: 1px solid #ccc !important;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .air-dropdown {
+    border-radius: 3px;
+    min-width: 80px !important;
+
+    .air-dropdown-menu-item .dropdown-menu-item {
+      font-size: 0.85rem;
+    }
+  }
+}

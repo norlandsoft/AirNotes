@@ -1,0 +1,44 @@
+.air-wiki-document-editor {
+
+  .air-wiki-document-editor-top {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: #fff;
+    z-index: 200;
+    box-shadow: -1px 2px 4px -2px rgba(0, 0, 0, 0.15);
+
+    .air-wiki-document-editor-breadcrumb {
+      .semi-breadcrumb-separator {
+        color: #000;
+        margin: 0 0.25rem;
+      }
+
+      .semi-breadcrumb-item-title span {
+        font-family: var(--font-family);
+      }
+
+      li {
+        font-size: 0.9rem;
+      }
+
+      li:not(:last-child) .air-breadcrumb-link {
+        cursor: pointer;
+        user-select: none;
+
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+  }
+
+  .air-wiki-document-editor-content {
+    border-top: 1px solid #e5e5e5;
+  }
+}

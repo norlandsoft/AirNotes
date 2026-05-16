@@ -1,0 +1,44 @@
+/* 自定义颜色选择器样式 */
+
+/* ColorPicker 样式统一管理 */
+// 颜色块和预设颜色基本样式
+.air-color-picker-color-block,
+.air-color-picker-presets-color,
+.air-color-picker-presets-color-bright {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+// 使用嵌套语法简化重复的选择器前缀
+.air-color-picker .air-color-picker-inner {
+  // 预设颜色 ::before 伪元素样式
+  .air-color-picker-presets-items .air-color-picker-presets-color::before {
+    width: 22px !important;
+    height: 22px !important;
+  }
+
+  // 预设颜色折叠面板标题样式 - 隐藏标题
+  .air-color-picker-presets .air-collapse-item > .air-collapse-header {
+    display: none !important;
+  }
+
+  // 颜色选择面板样式 - 设置最小高度
+  .air-color-picker-panel .air-color-picker-select .air-color-picker-palette {
+    min-height: 120px !important;
+  }
+}
+
+.air-color-picker-no-colors {
+  text-align: center;
+  padding: 4px 0;
+  color: #999;
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+  user-select: none;
+  margin-top: 8px;
+
+  &:hover {
+    color: #666;
+    background-color: #f5f5f5;
+  }
+}

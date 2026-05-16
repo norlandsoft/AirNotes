@@ -1,0 +1,29 @@
+.air-menu-button {
+  display: flex;
+  //设置左右居中
+  justify-content: center;
+  //设置上下居中
+  align-items: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background: #f1f2f3;
+  }
+
+  .air-dropdown {
+    min-width: 120px !important;
+
+    .air-dropdown-menu {
+      padding: 0;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+
+      .air-dropdown-menu-item {
+        padding: 8px 16px;
+      }
+    }
+  }
+}

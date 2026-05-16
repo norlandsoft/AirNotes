@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@@/*": [
+        "src/.umi/*"
+      ],
+      "umi": [
+        "node_modules/umi"
+      ],
+      "umi/typings": [
+        "src/.umi/typings"
+      ],
+      "air-design": [
+        "src/components/AirDesign"
+      ]
+    },
+    "module": "ES2022",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "importHelpers": false,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "strict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "strictNullChecks": false,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmitOnError": false,
+    "noImplicitAny": false
+  },
+  "include": [
+    "node_modules/antd/lib/**/*",
+    "src/**/*",
+    "**/*.svg",
+    ".umirc.ts",
+    "module.d.ts",
+    "typings.d.ts"
+  ],
+  "types": ["estree"]
+}
