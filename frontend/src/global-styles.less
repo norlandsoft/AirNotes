@@ -1,0 +1,234 @@
+.air-grid-panel {
+  .air-grid-panel-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background: #f5f5f5;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+
+    .air-grid-panel-title {
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-family: var(--font-family);
+      font-size: 1.2rem;
+      font-weight: 500;
+      gap: 8px;
+    }
+
+    .air-grid-panel-toolbar {
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 8px;
+    }
+  }
+}
+
+.air-tabs-panel {
+  .air-tabs-nav {
+    background: #fff !important;
+
+    .air-tabs-tab {
+      justify-content: center;
+      height: 39px !important;
+      min-width: 120px !important;
+      background: #fff !important;
+
+      &:hover {
+        background: rgba(150, 200, 250, 0.5) !important;
+      }
+
+      .air-tabs-button {
+        gap: 4px;
+      }
+    }
+  }
+}
+
+// 带子菜单的页面
+.air-menu-page-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.air-nav-tree {
+  &-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px;
+    padding: 0 12px;
+    font-family: var(--font-family);
+    font-size: 1.05rem;
+    font-weight: 550;
+    background: #fafafa;
+    box-sizing: border-box;
+
+    border-bottom: 1px solid #e8e8e8;
+    user-select: none;
+
+    span {
+      position: absolute;
+      left: 36px;
+      user-select: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 1.05rem;
+      font-family: var(--font-family);
+      font-weight: 400;
+    }
+
+    &-func {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border-radius: 50%;
+      background: #fafafa;
+      cursor: pointer;
+
+      &:hover {
+        background: #e1e2e3;
+      }
+    }
+  }
+
+  &-body {
+    overflow: auto;
+  }
+}
+
+.air-nav-page {
+  display: flex;
+  flex-direction: row;
+
+  .air-nav-page-menu {
+    box-sizing: border-box;
+    border-right: 1px solid #ccc;
+
+    &-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 50px;
+      padding: 0 12px;
+      background: #f1f2f3;
+      border-bottom: 1px solid #e8e8e8;
+      font-weight: 500;
+      box-sizing: border-box;
+    }
+
+    &-body {
+      overflow: auto;
+    }
+  }
+
+  .air-nav-page-menu-collapsed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f1f2f3;
+    border-right: 1px solid #ccc;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    span {
+      white-space: nowrap;
+      user-select: none;
+      transform: rotate(-90deg);
+      font-size: 0.95rem;
+      letter-spacing: 0.2rem;
+    }
+
+    &:hover {
+      background: #eee;
+    }
+  }
+}
+
+.air-list-page {
+  &-top {
+    background-color: #fafafa;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 8px 0 12px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e8e8e8;
+    font-family: var(--font-family);
+    font-size: 1.1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    overflow: hidden;
+    white-space: nowrap;
+
+    &-func {
+      display: flex;
+      align-items: center;
+      padding: 5px;
+      border-radius: 50%;
+      cursor: pointer;
+
+      &:hover {
+        background: #e1e2e3;
+      }
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+}
+
+.air-form-rich-edit {
+  :global {
+    .air-input.air-input-disabled {
+      background-color: #f1f2f3;
+      color: #333;
+    }
+
+    .air-form-item label {
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .tide-editor .tide-content .ProseMirror {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+
+      h1 {
+        font-size: 1.1rem;
+      }
+
+      h2 {
+        font-size: 1.05rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+      }
+
+      h4 {
+        font-size: 0.95rem;
+      }
+
+      h5 {
+        font-size: 0.9rem;
+      }
+
+      h6 {
+        font-size: 0.85rem;
+      }
+    }
+  }
+}

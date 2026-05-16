@@ -3,15 +3,15 @@ import {connect} from 'umi';
 import {Spin} from 'antd';
 import Login from '@/pages/Login';
 import Wiki from '@/pages/Wiki';
+import HeadBar from './HeadBar';
 
 const WikiLayout: React.FC<any> = props => {
-  const {dispatch, user} = props;
+  const {dispatch, user, layoutSize, frameSize} = props;
 
   useEffect(() => {
     const handleResize = () => {
       dispatch({type: 'global/changeFrameSize'});
     };
-
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -31,10 +31,23 @@ const WikiLayout: React.FC<any> = props => {
     return <Spin spinning={true} fullscreen tip="正在验证身份..."/>;
   }
 
-  return <Wiki/>;
+  return (
+    <>
+      <HeadBar height={layoutSize.headerHeight}/>
+      <div style={{
+        position: 'fixed',
+        top: layoutSize.headerHeight,
+        width: frameSize.width,
+        height: frameSize.height
+      }}>
+        <Wiki/>
+      </div>
+    </>
+  );
 };
 
 export default connect(({user, global}) => ({
   user,
+  layoutSize: global.layoutSize,
   frameSize: global.frameSize,
 }))(WikiLayout);

@@ -1,0 +1,30 @@
+/**
+ * 全局样式文件
+ * AirDesign 变量与基础样式由 air-design 包提供，此处仅保留应用布局
+ */
+
+@import "@/components/AirDesign/base.less";
+
+/* 用户可覆盖：字体缩放倍率，默认 1 */
+:root {
+  --font-scale: 1;
+}
+
+@import "global-antd";
+@import "global-semi";
+@import "global-tide";
+@import "global-styles";
+
+/* 应用布局：AirDesign 已提供 body 字体、* box-sizing */
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  overflow: hidden;
+}

@@ -1,10 +1,15 @@
+const HEADER_HEIGHT = 50;
+
 export default {
   namespace: 'global',
   state: {
+    layoutSize: {
+      headerHeight: HEADER_HEIGHT,
+    },
     frameSize: {
       width: window.innerWidth,
-      height: window.innerHeight,
-      slideHeight: window.innerHeight
+      height: window.innerHeight - HEADER_HEIGHT,
+      slideHeight: window.innerHeight - HEADER_HEIGHT,
     }
   },
   reducers: {
@@ -13,8 +18,8 @@ export default {
         ...state,
         frameSize: {
           width: window.innerWidth,
-          height: window.innerHeight,
-          slideHeight: window.innerHeight,
+          height: window.innerHeight - state.layoutSize.headerHeight,
+          slideHeight: window.innerHeight - state.layoutSize.headerHeight,
         }
       }
     }

@@ -1,0 +1,113 @@
+.semi-dropdown {
+  .semi-dropdown-menu {
+    padding: 0 !important;
+
+    .semi-dropdown-item {
+      font-size: 0.9rem;
+      min-width: 65px;
+    }
+  }
+}
+
+.semi-table-placeholder {
+  overflow: hidden;
+}
+
+.semi-portal {
+  z-index: 9999 !important;
+
+  .semi-page-rest-list {
+    max-width: 60px;
+
+    .semi-page-rest-item {
+      background: #fff;
+      font-weight: 400;
+
+      &:hover {
+        background: #fff;
+        color: var(--primary-color);
+        font-weight: 550;
+      }
+    }
+
+    // 滚动条
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    // 滚动条轨道
+    &::-webkit-scrollbar-track {
+      background: #fff;
+    }
+
+    // 滚动条滑块
+    &::-webkit-scrollbar-thumb {
+      background: #ddd;
+      border-radius: 3px;
+    }
+  }
+}
+
+.semi-tree-wrapper {
+  .semi-tree-option {
+    .semi-tree-option-empty-icon {
+      width: 20px;
+      margin-right: 4px;
+    }
+
+    .semi-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 3px;
+      margin-right: 4px;
+
+      &:hover {
+        background: var(--color-200);
+        color: var(--color-600);
+      }
+    }
+
+    .semi-tree-option-label .semi-checkbox {
+      .semi-checkbox-inner-display {
+        width: 16px;
+        height: 16px;
+
+        .semi-icon {
+          width: 16px;
+          height: 16px;
+          margin: 0;
+          background: var(--primary-color);
+
+          svg {
+            height: 16px;
+            width: 16px;
+
+            path {
+              fill: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .semi-tree-option-list .semi-tree-option-draggable {
+    border: 2px solid transparent;
+  }
+
+  .semi-tree-option-list .semi-tree-option-drag-over.semi-tree-option-draggable {
+    background: var(--color-600);
+  }
+
+  .semi-tree-option-list .semi-tree-option-draggable .semi-tree-option-drag-over-gap-bottom {
+    border-bottom: 1px solid var(--primary-color);
+  }
+
+  .semi-tree-option-list .semi-tree-option-draggable .semi-tree-option-drag-over-gap-top {
+    border-top: 1px solid var(--primary-color);
+  }
+}

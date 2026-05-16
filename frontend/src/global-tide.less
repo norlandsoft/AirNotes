@@ -1,0 +1,68 @@
+.tide-content .ProseMirror {
+  font-family: var(--font-family);
+  padding: 8px 62px 60px;
+
+  .node-codeBlock .tide-code-block {
+    &__toolbar span {
+      font-family: var(--font-family-code) !important;
+      font-size: 0.85rem;
+    }
+
+    &__content pre code {
+      padding: 36px 12px 8px 12px !important;
+      font-family: var(--font-family-code) !important;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+  }
+
+  code {
+    font-family: var(--font-family-code) !important;
+    font-size: 0.95rem;
+    padding: 2px 4px;
+  }
+}
+
+.tide-content .ProseMirror ul li::marker, .tide-content .ProseMirror ol {
+  padding-left: 32px;
+}
+
+.tide-content .ProseMirror ul li::marker, .tide-content .ProseMirror ol li::marker {
+  color: #000;
+  padding-left: 12px;
+}
+
+.tide-editor {
+  border-color: #ccc;
+  border-radius: 3px;
+
+  .tide-content {
+    overflow: auto;
+
+    .tiptap {
+      padding: 8px 60px 60px;
+    }
+
+    // 滚动条样式
+    &::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+      background-color: transparent;
+
+      &:hover {
+        width: 12px;
+        height: 12px;
+      }
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border: 1px solid white;
+      border-radius: 5px;
+      background-color: rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+}

@@ -37,6 +37,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-textarea-autosize": "^8.5.9",
+    "screenfull": "^6.0.2",
     "tippy.js": "^6.3.7"
   },
   "devDependencies": {
