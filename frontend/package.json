@@ -31,6 +31,7 @@
     "@tiptap/suggestion": "^3.15.3",
     "@xyflow/react": "^12.10.0",
     "antd": "^5.29.1",
+    "crypto-js": "^4.2.0",
     "dayjs": "^1.11.19",
     "lowlight": "^2.9.0",
     "react": "^18.3.1",
@@ -39,6 +40,7 @@
     "tippy.js": "^6.3.7"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@umijs/max": "^4.6.7",

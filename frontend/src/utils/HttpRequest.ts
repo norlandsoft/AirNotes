@@ -19,8 +19,8 @@ const codeMessage = {
 
 // 封装请求头
 function requestHeader() {
-  const token = sessionStorage.getItem("air-machine-token");
-  const userId = sessionStorage.getItem("air-machine-user");
+  const token = sessionStorage.getItem("air-notes-token");
+  const userId = sessionStorage.getItem("air-notes-user");
   return {
     'Authorization': 'Bearer ' + token,
     'Connection': 'keep-alive',
