@@ -55,7 +55,7 @@ const SpaceDropdownMenu: React.FC<any> = props => {
               if (resp.success) {
                 dispatch({
                   type: 'wiki/addRecentSpace',
-                  payload: resp.data.id,
+                  payload: {spaceId: resp.data.id},
                   callback: resp => {
                     if (resp.success) {
                       dispatch({
@@ -92,22 +92,24 @@ const SpaceDropdownMenu: React.FC<any> = props => {
     }
   ] : []
 
-  // 最近访问空间
-  const recentItems = recentSpaces.length > 0 ? [
+  // 最近访问空间（排除当前空间，取前5个）
+  const recentSpacesList = recentSpaces
+    .filter(space => space.id !== currentSpace?.id)
+    .slice(0, 5);
+  const recentItems = recentSpacesList.length > 0 ? [
     {
       label: <div style={{fontSize: '0.75rem', color: '#999', fontWeight: 'bold'}}>最近</div>,
       key: 'recent-space',
       disabled: true,
     },
-    ...recentSpaces.map(space => {
+    ...recentSpacesList.map(space => {
       return {
         label: space.name,
         key: space.id,
         onClick: () => {
-          // add recent space
           dispatch({
             type: 'wiki/addRecentSpace',
-            payload: space.id,
+            payload: {spaceId: space.id},
             callback: resp => {
               if (resp.success) {
                 dispatch({
