@@ -1,5 +1,4 @@
 import {defineConfig} from "umi";
-import path from 'path';
 
 export default defineConfig({
   dva: {},
@@ -34,5 +33,10 @@ export default defineConfig({
   },
   hash: true,
   esbuildMinifyIIFE: true,
-  base: "/"
+  base: "/",
+  // 兼容 air-design (.mjs) 中的 ESM 导入路径（不带扩展名）
+  chainWebpack(config) {
+    config.resolve.extensions.merge(['.mjs']);
+    config.module.rule('mjs-strict').test(/\.mjs$/).resolve.set('fullySpecified', false);
+  },
 });
