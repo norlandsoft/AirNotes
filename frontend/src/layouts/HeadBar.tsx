@@ -14,6 +14,12 @@ const HeadBar: React.FC<any> = props => {
   const [showUserPanel, setShowUserPanel] = useState(false);
   const [showPasswordPanel, setShowPasswordPanel] = useState(false);
 
+  // 修改密码
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
   useEffect(() => {
     const handleResize = () => setFullScreen(screenfull.isFullscreen);
     window.addEventListener('resize', handleResize);
@@ -37,6 +43,38 @@ const HeadBar: React.FC<any> = props => {
       }
     });
   };
+
+  const handleChangePassword = () => {
+    setPasswordError('');
+    if (!oldPassword || !newPassword) {
+      setPasswordError('请填写完整');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setPasswordError('两次密码不一致');
+      return;
+    }
+    if (newPassword.length < 4) {
+      setPasswordError('密码长度不能少于4位');
+      return;
+    }
+    dispatch({
+      type: 'user/changePassword',
+      payload: {
+        oldPassword: SHA256(oldPassword).toString(),
+        newPassword: SHA256(newPassword).toString()
+      },
+      callback: (resp: any) => {
+        if (resp.success) {
+          setShowPasswordPanel(false);
+        } else {
+          setPasswordError(resp.message);
+        }
+      }
+    });
+  };
+
+  const inputStyle = {width: '100%', padding: '8px', border: '1px solid #d9d9d9', borderRadius: '4px'};
 
   return (
     <div className="air-layout-head" style={{height, width: window.innerWidth}}>
@@ -106,79 +144,24 @@ const HeadBar: React.FC<any> = props => {
         hasCloseButton={true}
         confirmButtonText="保存"
         closeButtonText="关闭"
-        onConfirm={async () => {
-          const form = document.querySelector('.password-form') as any;
-          if (form) form.requestSubmit();
-        }}
+        onConfirm={handleChangePassword}
       >
-        <ChangePasswordForm
-          userId={currentUser?.id}
-          dispatch={dispatch}
-          onSuccess={() => setShowPasswordPanel(false)}
-        />
+        <div style={{padding: '16px'}}>
+          <div style={{marginBottom: '8px'}}>
+            <input type="password" placeholder="旧密码" value={oldPassword}
+                   onChange={e => setOldPassword(e.target.value)} style={inputStyle}/>
+          </div>
+          <div style={{marginBottom: '8px'}}>
+            <input type="password" placeholder="新密码" value={newPassword}
+                   onChange={e => setNewPassword(e.target.value)} style={inputStyle}/>
+          </div>
+          <div style={{marginBottom: '8px'}}>
+            <input type="password" placeholder="确认新密码" value={confirmPassword}
+                   onChange={e => setConfirmPassword(e.target.value)} style={inputStyle}/>
+          </div>
+          {passwordError && <div style={{color: '#ff4d4f', fontSize: '14px'}}>{passwordError}</div>}
+        </div>
       </SlidePanel>
-    </div>
-  );
-};
-
-const ChangePasswordForm: React.FC<any> = ({userId, dispatch, onSuccess}) => {
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-
-  const handleSubmit = () => {
-    setError('');
-    if (!oldPassword || !newPassword) {
-      setError('请填写完整');
-      return;
-    }
-    if (newPassword !== confirmPassword) {
-      setError('两次密码不一致');
-      return;
-    }
-    if (newPassword.length < 4) {
-      setError('密码长度不能少于4位');
-      return;
-    }
-
-    dispatch({
-      type: 'user/changePassword',
-      payload: {
-        oldPassword: SHA256(oldPassword).toString(),
-        newPassword: SHA256(newPassword).toString()
-      },
-      callback: (resp: any) => {
-        if (resp.success) {
-          onSuccess();
-        } else {
-          setError(resp.message);
-        }
-      }
-    });
-  };
-
-  return (
-    <div style={{padding: '16px'}}>
-      <div style={{marginBottom: '12px'}}>
-        <div style={{marginBottom: '8px'}}>
-          <input type="password" placeholder="旧密码" value={oldPassword}
-                 onChange={e => setOldPassword(e.target.value)}
-                 style={{width: '100%', padding: '8px', border: '1px solid #d9d9d9', borderRadius: '4px'}}/>
-        </div>
-        <div style={{marginBottom: '8px'}}>
-          <input type="password" placeholder="新密码" value={newPassword}
-                 onChange={e => setNewPassword(e.target.value)}
-                 style={{width: '100%', padding: '8px', border: '1px solid #d9d9d9', borderRadius: '4px'}}/>
-        </div>
-        <div style={{marginBottom: '8px'}}>
-          <input type="password" placeholder="确认新密码" value={confirmPassword}
-                 onChange={e => setConfirmPassword(e.target.value)}
-                 style={{width: '100%', padding: '8px', border: '1px solid #d9d9d9', borderRadius: '4px'}}/>
-        </div>
-        {error && <div style={{color: '#ff4d4f', fontSize: '14px'}}>{error}</div>}
-      </div>
-      <button className="password-form" style={{display: 'none'}} onClick={handleSubmit}/>
     </div>
   );
 };

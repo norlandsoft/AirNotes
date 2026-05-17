@@ -9,9 +9,6 @@ export default defineConfig({
     {id: 'theme', rel: 'stylesheet', type: 'text/css'},
     {rel: 'shortcut icon', href: '/favicon.svg'}
   ],
-  alias: {
-    "air-design": path.resolve(__dirname, "src/components/AirDesign"),
-  },
   routes: [
     {
       path: "/",
@@ -37,13 +34,5 @@ export default defineConfig({
   },
   hash: true,
   esbuildMinifyIIFE: true,
-  base: "/",
-  chainWebpack: config => {
-    config.module.rule('svg').exclude.add(path.resolve(__dirname, 'src/components/AirDesign/Icon/svg')).end();
-    config.module
-      .rule('svg-raw')
-      .test(/\.svg$/)
-      .include.add(path.resolve(__dirname, 'src/components/AirDesign/Icon/svg')).end()
-      .type('asset/source');
-  }
+  base: "/"
 });

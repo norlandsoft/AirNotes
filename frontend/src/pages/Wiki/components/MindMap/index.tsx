@@ -1,9 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {connect} from 'umi';
 import {Spin} from "antd";
-import MindPanel from '@/components/MindPanel';
-
-import {MindData} from '@/components/MindPanel/data/MindData';
+import {MindPanel} from 'air-design';
+import type {MindData} from 'air-design';
 
 const MindMap: React.FC<any> = props => {
 
