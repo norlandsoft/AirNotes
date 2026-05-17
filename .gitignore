@@ -29,4 +29,5 @@ target/
 # Node
 node_modules/
 
+workspace
 .playwright-mcp

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration status="error">
+
+  <appenders>
+    <RollingFile name="RollingFile" append="false" fileName="${sys:log.path}/${sys:log.name}.log"
+                 filePattern="${sys:log.path}/history/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+      <PatternLayout charset="utf-8" pattern="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %c - %m%n"/>
+      <SizeBasedTriggeringPolicy size="10MB"/>
+    </RollingFile>
+
+    <Async name="AsyncFileLog">
+      <AppenderRef ref="RollingFile"/>
+    </Async>
+  </appenders>
+
+  <loggers>
+    <root level="${sys:log.level}">
+      <appender-ref ref="AsyncFileLog"/>
+    </root>
+    <logger name="jdk" level="error"/>
+    <logger name="sun" level="error"/>
+    <logger name="java" level="error"/>
+    <logger name="javax" level="error"/>
+    <logger name="org.springframework" level="error"/>
+    <logger name="_org.springframework" level="error"/>
+    <logger name="org.apache" level="error"/>
+    <logger name="com.github.pagehelper" level="error"/>
+    <logger name="org.mybatis.spring" level="error"/>
+    <logger name="org.postgresql" level="error"/>
+    <logger name="com.zaxxer.hikari" level="error"/>
+    <logger name="io.netty" level="error"/>
+    <logger name="reactor.netty" level="error"/>
+    <logger name="io.lettuce.core" level="error"/>
+    <logger name="software.amazon.awssdk" level="error"/>
+  </loggers>
+
+</configuration>
