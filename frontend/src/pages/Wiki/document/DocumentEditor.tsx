@@ -3,7 +3,7 @@ import {connect} from "umi";
 import {Icon, IconButton, success, warn} from 'air-design';
 import {AntdSpin as Spin} from 'air-design';
 import {RichEditor} from 'air-design';
-import {Breadcrumb} from "@douyinfe/semi-ui";
+import {SemiBreadcrumb as Breadcrumb} from 'air-design';
 import {findImageNodes} from "../components/DocImage";
 import './DocumentEditor.less';
 
