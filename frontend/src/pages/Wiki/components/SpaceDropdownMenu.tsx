@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import {connect} from 'umi';
 import {Dialog, error, Icon} from 'air-design';
-import type {MenuProps} from 'antd';
-import {Dropdown, Form} from 'antd';
+import type {MenuProps} from 'air-design';
+import {Dropdown, Form} from 'air-design';
 import NewSpaceForm from "@/pages/Wiki/components/NewSpaceForm";
 
 const SpaceDropdownMenu: React.FC<any> = props => {

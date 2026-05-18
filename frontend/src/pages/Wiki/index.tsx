@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {connect} from 'umi';
 import {Dialog, error, Icon, Splitter, Tree} from 'air-design';
-import {Form, Input} from 'antd';
+import {Form, Input} from 'air-design';
 
 import SpaceList from './space/SpaceList';
 import WorkContent from './WorkContent';

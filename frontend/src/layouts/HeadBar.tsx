@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from 'umi';
-import {Avatar} from 'antd';
+import {Avatar} from 'air-design';
 import {Dialog, Icon, SlidePanel} from 'air-design';
 import screenfull from 'screenfull';
 import {SHA256} from 'crypto-js';

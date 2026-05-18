@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {connect} from 'umi';
-import {Card, Empty, Form, Input, Radio, Space} from 'antd';
+import {Card, Empty, Form, Input, Radio, Space} from 'air-design';
 import {AppstoreOutlined, BarsOutlined} from '@ant-design/icons';
 import {Button, Dialog, Icon, Message, Table} from 'air-design';
 import {formatDate} from '@/utils/StringUtils';

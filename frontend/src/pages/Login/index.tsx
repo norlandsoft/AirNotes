@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'umi';
-import {Form, Input, Button} from 'antd';
+import {Form, Input, AntdButton as Button} from 'air-design';
 import {SHA256} from 'crypto-js';
 import './index.less';
 
