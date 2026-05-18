@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {connect} from 'umi';
-import {Dialog, error, Icon, Splitter, Tree} from 'air-design';
+import {Dialog, Icon, Splitter, Tree, Notice} from 'air-design';
 import {Form, Input} from 'air-design';
 
 import SpaceList from './space/SpaceList';
@@ -17,8 +17,7 @@ const parentStyle = {
   // 禁止换行
   whiteSpace: 'nowrap',
   overflow: 'hidden',
-  textOverflow: 'ellipsis',
-}
+  textOverflow: 'ellipsis'}
 
 const Wiki: React.FC<any> = props => {
 
@@ -125,16 +124,12 @@ const Wiki: React.FC<any> = props => {
                   // close
                   dlg.doCancel();
                 } else {
-                  error({
-                    message: resp.message
-                  });
+                  Notice.error('', resp.message);
                 }
               }
             });
           } else {
-            error({
-              message: '请输入合法名称'
-            });
+            Notice.error('', '请输入合法名称');
           }
         });
       }
@@ -154,8 +149,7 @@ const Wiki: React.FC<any> = props => {
         id: item.key,
         name: item.label,
         format: item.data
-      },
-    });
+      }});
   }
 
   const handleRenameDoc = (data: any) => {
@@ -193,10 +187,7 @@ const Wiki: React.FC<any> = props => {
                 handleGetDocMenu();
                 dlg.doCancel();
               } else {
-                error({
-                  title: '错误',
-                  message: resp.message
-                });
+                Notice.error('错误', resp.message);
               }
             }
           });
@@ -213,21 +204,16 @@ const Wiki: React.FC<any> = props => {
         dispatch({
           type: 'wiki/removeDoc',
           payload: {
-            id: data.key,
-          },
+            id: data.key},
           callback: resp => {
             if (resp.success) {
               handleGetDocMenu();
               dlg.doCancel();
               dispatch({
                 type: 'wiki/setCurrentDoc',
-                payload: {},
-              });
+                payload: {}});
             } else {
-              error({
-                title: '错误',
-                message: resp.message
-              });
+              Notice.error('错误', resp.message);
             }
           }
         });
@@ -308,9 +294,7 @@ const Wiki: React.FC<any> = props => {
           if (resp.success) {
             handleGetDocMenu();
           } else {
-            error({
-              message: resp.message
-            });
+            Notice.error('', resp.message);
           }
         }
       });
@@ -327,9 +311,7 @@ const Wiki: React.FC<any> = props => {
           if (resp.success) {
             handleGetDocMenu();
           } else {
-            error({
-              message: resp.message
-            });
+            Notice.error('', resp.message);
           }
         }
       });

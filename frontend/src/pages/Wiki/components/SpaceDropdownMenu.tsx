@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {connect} from 'umi';
-import {Dialog, error, Icon} from 'air-design';
+import {Dialog, Icon, Notice} from 'air-design';
 import type {MenuProps} from 'air-design';
 import {Dropdown, Form} from 'air-design';
 import NewSpaceForm from "@/pages/Wiki/components/NewSpaceForm";
@@ -60,23 +60,18 @@ const SpaceDropdownMenu: React.FC<any> = props => {
                     if (resp.success) {
                       dispatch({
                         type: 'wiki/fetchRecentSpaces',
-                        payload: {},
-                      });
+                        payload: {}});
                     }
                   }
                 });
                 dlg.doCancel();
               } else {
-                error({
-                  title: '创建空间失败',
-                  message: resp.message,
-                });
+                Notice.error('创建空间失败', resp.message);
               }
             }
           });
         });
-      },
-    });
+      }});
   }
 
   // 当前空间
@@ -84,8 +79,7 @@ const SpaceDropdownMenu: React.FC<any> = props => {
     {
       label: <div style={{fontSize: '0.75rem', color: '#999', fontWeight: 'bold'}}>当前</div>,
       key: 'current-space',
-      disabled: true,
-    },
+      disabled: true},
     {
       label: currentSpace.name,
       key: `current-${currentSpace.id}`
@@ -100,8 +94,7 @@ const SpaceDropdownMenu: React.FC<any> = props => {
     {
       label: <div style={{fontSize: '0.75rem', color: '#999', fontWeight: 'bold'}}>最近</div>,
       key: 'recent-space',
-      disabled: true,
-    },
+      disabled: true},
     ...recentSpacesList.map(space => {
       return {
         label: space.name,
@@ -114,8 +107,7 @@ const SpaceDropdownMenu: React.FC<any> = props => {
               if (resp.success) {
                 dispatch({
                   type: 'wiki/fetchRecentSpaces',
-                  payload: {},
-                });
+                  payload: {}});
               }
             }
           });

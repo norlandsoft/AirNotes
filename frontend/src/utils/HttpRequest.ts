@@ -1,4 +1,4 @@
-import {error} from 'air-design';
+import {} from 'air-design';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -14,8 +14,7 @@ const codeMessage = {
   501: '无法处理服务请求。',
   502: '网关错误。',
   503: '服务不可用，服务器暂时过载或维护。',
-  504: '网关超时。',
-};
+  504: '网关超时。'};
 
 // 封装请求头
 function requestHeader() {
@@ -25,8 +24,7 @@ function requestHeader() {
     'Authorization': 'Bearer ' + token,
     'Connection': 'keep-alive',
     'Content-Type': 'application/json;charset=UTF-8',
-    'X-User-Id': userId || '',
-  };
+    'X-User-Id': userId || ''};
 }
 
 // 判断是否为JSON格式字符串
@@ -202,18 +200,10 @@ export async function POST(url: string | URL | Request, params: any) {
 
               // 触发登出事件
               window.dispatchEvent(new CustomEvent('auth-state-changed', {
-                detail: {authenticated: false},
-              }));
+                detail: {authenticated: false}}));
 
               if (url != '/rest/user/session/current' && url != '/rest/platform/user/login' && url != '/admin/user/login') {
-                error({
-                  title: '登录已失效',
-                  message: '您的登录已过期，请重新登录。',
-                  onClose: () => {
-                    // 跳转到登录页
-                    window.location.href = '/';
-                  }
-                });
+                Notice.error('登录已失效', '您的登录已过期，请重新登录。');
               }
               return resolve({
                 success: false,
@@ -234,10 +224,7 @@ export async function POST(url: string | URL | Request, params: any) {
               });
             case 500:
               if (url != '/rest/user/current') {
-                error({
-                  title: 'HTTP-500',
-                  message: '服务器内部错误'
-                });
+                Notice.error('HTTP-500', '服务器内部错误');
               }
               return resolve({
                 success: false,
@@ -294,16 +281,10 @@ export async function POST(url: string | URL | Request, params: any) {
                 return resolve(res.blob());
               }
             default:
-              error({
-                title: `HTTP ${res.status}`,
-                message: codeMessage[res.status]
-              });
+              Notice.error(`HTTP ${res.status}`, codeMessage[res.status]);
           }
         }).catch(err => {
-          error({
-            title: '网络错误',
-            message: err.message
-          });
+          Notice.error('网络错误', err.message);
           return resolve({
             success: false,
             code: 'NETWORK_ERROR',
@@ -323,8 +304,7 @@ export async function GET(url: string | URL | Request) {
       method: 'GET',
       headers: requestHeader(),
       mode: 'cors',
-      cache: 'no-cache',
-    })
+      cache: 'no-cache'})
         .then((res) => {
           if (res.status === 200) {
             const ct = res.headers.get('Content-Type') || '';
@@ -336,13 +316,11 @@ export async function GET(url: string | URL | Request) {
           if (res.status === 401) {
             sessionStorage.clear();
             window.dispatchEvent(new CustomEvent('auth-state-changed', {
-              detail: {authenticated: false},
-            }));
+              detail: {authenticated: false}}));
           }
           resolve({
             success: false,
-            message: codeMessage[res.status as keyof typeof codeMessage] || `HTTP ${res.status}`,
-          });
+            message: codeMessage[res.status as keyof typeof codeMessage] || `HTTP ${res.status}`});
         })
         .catch((err) => reject(err));
   });

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {connect} from "umi";
-import {Icon, IconButton, success, warn} from 'air-design';
+import {Icon, IconButton, Notice} from 'air-design';
 import {AntdSpin as Spin} from 'air-design';
 import {RichEditor} from 'air-design';
 import {SemiBreadcrumb as Breadcrumb} from 'air-design';
@@ -49,8 +49,7 @@ const DocumentEditor: React.FC<any> = props => {
             ...data.breadCrumb,
             {
               key: data.id,
-              label: data.title,
-            }
+              label: data.title}
           ]
           setCurrentBreadCrumbs(newBreadcrumbs);
 
@@ -73,10 +72,7 @@ const DocumentEditor: React.FC<any> = props => {
     const content = editorRef.current.getContent();
     const title = content.title;
     if (title === '') {
-      warn({
-        title: '提示',
-        message: '请输入标题',
-      });
+      Notice.warning('提示', '请输入标题');
       return;
     }
 
@@ -103,10 +99,7 @@ const DocumentEditor: React.FC<any> = props => {
         },
         callback: resp => {
           if (resp.success) {
-            success({
-              title: '提示',
-              message: '保存成功',
-            });
+            Notice.success('提示', '保存成功');
 
             getDocInfo();
 
@@ -114,14 +107,10 @@ const DocumentEditor: React.FC<any> = props => {
             dispatch({
               type: 'wiki/fetchDocMenu',
               payload: {
-                space: currentSpace?.id,
-              }
+                space: currentSpace?.id}
             });
           } else {
-            warn({
-              title: '提示',
-              message: '保存失败',
-            });
+            Notice.warning('提示', '保存失败');
           }
         }
       });
@@ -144,8 +133,7 @@ const DocumentEditor: React.FC<any> = props => {
       dispatch({
         type: 'wiki/setCurrentDoc',
         payload: {
-          id: page,
-        }
+          id: page}
       });
 
       return;
