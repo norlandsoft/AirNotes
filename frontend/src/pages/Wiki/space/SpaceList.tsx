@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {connect} from 'umi';
 import {Card, Empty, Form, Input, Radio, Space} from 'air-design';
-import {AppstoreOutlined, BarsOutlined} from '@ant-design/icons';
 import {Button, Dialog, Icon, Message, Table} from 'air-design';
 import {formatDate} from '@/utils/StringUtils';
 
@@ -204,10 +203,10 @@ const SpaceList: React.FC<any> = props => {
                     buttonStyle="solid"
                 >
                   <Radio.Button value="card" title="卡片视图">
-                    <AppstoreOutlined/>
+                    <Icon name="apps" size={14} />
                   </Radio.Button>
                   <Radio.Button value="list" title="列表视图">
-                    <BarsOutlined/>
+                    <Icon name="menu" size={14} />
                   </Radio.Button>
                 </Radio.Group>
                 <Button onClick={loadSpaceList}>
