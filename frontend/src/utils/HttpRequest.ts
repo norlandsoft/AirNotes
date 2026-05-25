@@ -24,7 +24,7 @@ function requestHeader() {
     'Authorization': 'Bearer ' + token,
     'Connection': 'keep-alive',
     'Content-Type': 'application/json;charset=UTF-8',
-    'X-User-Id': userId || ''};
+    'X-User-Login-Id': userId || ''};
 }
 
 // 判断是否为JSON格式字符串
@@ -202,7 +202,7 @@ export async function POST(url: string | URL | Request, params: any) {
               window.dispatchEvent(new CustomEvent('auth-state-changed', {
                 detail: {authenticated: false}}));
 
-              if (url != '/rest/user/session/current' && url != '/rest/platform/user/login' && url != '/admin/user/login') {
+              if (url != '/rest/auth/current' && url != '/rest/auth/login' && url != '/admin/user/login') {
                 Notice.error('登录已失效', '您的登录已过期，请重新登录。');
               }
               return resolve({
@@ -223,7 +223,7 @@ export async function POST(url: string | URL | Request, params: any) {
                 message: '异常 [HTTP-408], 请求超时'
               });
             case 500:
-              if (url != '/rest/user/current') {
+              if (url != '/rest/auth/current') {
                 Notice.error('HTTP-500', '服务器内部错误');
               }
               return resolve({

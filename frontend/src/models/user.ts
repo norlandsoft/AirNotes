@@ -10,13 +10,18 @@ export default {
   effects: {
     * login({payload}, {put}) {
       yield put({type: 'setLoading', payload: true});
-      const resp = yield POST("/rest/user/login", payload);
+
+      // admin 用户走管理后台登录，其他用户走 SSO 登录
+      const isAdmin = payload.id && payload.id.trim().toLowerCase() === 'admin';
+      const loginUrl = isAdmin ? '/admin/user/login' : '/rest/auth/login';
+      const resp = yield POST(loginUrl, payload);
+
       yield put({type: 'setLoading', payload: false});
 
       if (resp.success) {
         const {token, user} = resp.data;
         sessionStorage.setItem('air-notes-token', token);
-        sessionStorage.setItem('air-notes-user', user.id);
+        sessionStorage.setItem('air-notes-user', user.id || user.loginId || payload.id);
         yield put({type: 'setUser', payload: user});
       } else {
         yield put({type: 'setUser', payload: null});
@@ -32,9 +37,9 @@ export default {
         return;
       }
 
-      const resp = yield POST("/rest/user/session/current");
+      const resp = yield POST("/rest/auth/current");
       if (resp.success) {
-        yield put({type: 'setUser', payload: resp.data.user});
+        yield put({type: 'setUser', payload: resp.data});
       } else {
         yield put({type: 'clearUser'});
       }
@@ -47,7 +52,7 @@ export default {
     },
 
     * changePassword({payload, callback}, {put}) {
-      const resp = yield POST("/rest/user/password", payload);
+      const resp = yield POST("/admin/user/changePassword", payload);
       if (callback) callback(resp);
     }
   },
