@@ -26,6 +26,16 @@ export default defineConfig({
       'onProxyRes': function (proxyRes: any) {
         proxyRes.headers['Content-Encoding'] = 'chunked';
       }
+    },
+    "/admin": {
+      target: "http://localhost:6600",
+      changeOrigin: true,
+      pathRewrite: {"^": ""}
+    },
+    "/initialAdminPassword": {
+      target: "http://localhost:6600",
+      changeOrigin: true,
+      pathRewrite: {"^": ""}
     }
   },
   codeSplitting: {
