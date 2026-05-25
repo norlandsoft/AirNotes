@@ -30,4 +30,5 @@ target/
 node_modules/
 
 workspace
+.idea
 .playwright-mcp
