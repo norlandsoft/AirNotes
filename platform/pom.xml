@@ -13,6 +13,14 @@
   <artifactId>platform</artifactId>
   <packaging>jar</packaging>
 
+  <dependencies>
+    <dependency>
+      <groupId>com.norlandsoft</groupId>
+      <artifactId>framework-sdk</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+  </dependencies>
+
   <build>
     <finalName>air-notes-platform</finalName>
   </build>
