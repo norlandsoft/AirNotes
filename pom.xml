@@ -2,77 +2,115 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <parent>
+  <groupId>com.norlandsoft</groupId>
+  <artifactId>AirNotes</artifactId>
+  <version>1.0.0</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.compiler.target>21</maven.compiler.target>
+    <maven.test.skip>true</maven.test.skip>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <!--maven plugins-->
+    <maven.clean.plugin>3.4.0</maven.clean.plugin>
+    <maven.compiler.plugin>3.14.1</maven.compiler.plugin>
+
+    <lombok.version>1.18.42</lombok.version>
+
+    <!--Spring Boot 与 Spring AI 版本由 BOM 统一管理-->
+    <springboot.version>4.1.0-RC1</springboot.version>
+    <spring.ai.version>2.0.0-M6</spring.ai.version>
+
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.1.0-M4</version>
-        <relativePath/>
-    </parent>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${springboot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.ai</groupId>
+        <artifactId>spring-ai-bom</artifactId>
+        <version>${spring.ai.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
-    <groupId>com.norlandsoft</groupId>
-    <artifactId>AirNotes</artifactId>
-    <version>1.0.0</version>
-    <packaging>pom</packaging>
-    <name>Air Notes</name>
+  <dependencies>
+    <!--Lombok（provided scope 不会由 framework-sdk 传递，需在此声明）-->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
 
-    <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <maven.compiler.release>21</maven.compiler.release>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+  <modules>
+    <module>platform</module>
+  </modules>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.norlandsoft</groupId>
-                <artifactId>air-framework-dependencies</artifactId>
-                <version>1.2.0</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.*</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.xml</include>
+          <include>**/*.json</include>
+        </includes>
+      </resource>
+    </resources>
 
-    <modules>
-      <module>platform</module>
-    </modules>
-
-    <repositories>
-        <repository>
-            <id>spring-milestone</id>
-            <url>https://repo.spring.io/milestone</url>
-        </repository>
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/norlandsoft/air-framework-dependencies</url>
-        </repository>
-    </repositories>
-
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.*</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                    <include>**/*.json</include>
-                </includes>
-            </resource>
-        </resources>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>${maven.clean.plugin}</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${project.basedir}</directory>
+              <useDefaultExcludes>true</useDefaultExcludes>
+              <includes>
+                <include>**/lib/</include>
+              </includes>
+              <excludes>
+                <exclude>**/docker/</exclude>
+                <exclude>**/docs/</exclude>
+                <exclude>**/frontend/</exclude>
+              </excludes>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.compiler.plugin}</version>
+        <configuration>
+          <compilerArgs>
+            <!-- 使用下面的选项来隐藏警告 -->
+            <arg>-Xlint:-options</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

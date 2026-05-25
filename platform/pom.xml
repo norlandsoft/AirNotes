@@ -19,16 +19,27 @@
       <artifactId>framework-sdk</artifactId>
       <version>1.0.0</version>
     </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.42</version>
-      <scope>provided</scope>
-    </dependency>
   </dependencies>
 
   <build>
     <finalName>air-notes-platform</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${springboot.version}</version>
+        <configuration>
+          <includeSystemScope>true</includeSystemScope>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
   </build>
 
 </project>
