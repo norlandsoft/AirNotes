@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 import {connect} from "umi";
 import {Icon, IconButton, Notice} from 'air-design';
-import {AntdSpin as Spin} from 'air-design';
+import {Spin} from 'air-design';
 import {RichEditor} from 'air-design';
 import {SemiBreadcrumb as Breadcrumb} from 'air-design';
 import {findImageNodes} from "../components/DocImage";

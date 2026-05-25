@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {connect} from 'umi';
-import {AntdSpin as Spin} from 'air-design';
+import {Spin} from 'air-design';
 import Login from '@/pages/Login';
 import Wiki from '@/pages/Wiki';
 import HeadBar from './HeadBar';
