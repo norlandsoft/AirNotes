@@ -46,20 +46,4 @@ function equalJsonArray(arr1, arr2) {
   return sortedArr1 === sortedArr2;
 }
 
-function formatDate(dateString: string) {
-  // 创建日期对象
-  var dateObj = new Date(dateString);
-
-  // 提取年、月、日、小时、分钟和秒
-  var year = dateObj.getFullYear();
-  var month = (dateObj.getMonth() + 1).toString().padStart(2, '0'); // 月份是从0开始的，需要加1并补零
-  var day = dateObj.getDate().toString().padStart(2, '0');
-  var hours = dateObj.getHours().toString().padStart(2, '0');
-  var minutes = dateObj.getMinutes().toString().padStart(2, '0');
-  var seconds = dateObj.getSeconds().toString().padStart(2, '0');
-
-  // 构建新的日期字符串
-  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-}
-
-export {randomString, UUID, shortId, equalJsonArray, formatDate};
+export {randomString, UUID, shortId, equalJsonArray};

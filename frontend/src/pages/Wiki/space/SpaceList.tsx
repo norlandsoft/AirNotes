@@ -2,8 +2,6 @@ import React, {useEffect, useRef, useState} from "react";
 import {connect} from 'umi';
 import {Card, Empty, Form, Input, Radio, Space} from 'air-design';
 import {Button, Dialog, Icon, Message, Table} from 'air-design';
-import {formatDate} from '@/utils/StringUtils';
-
 import styles from './SpaceList.less';
 
 /**
@@ -248,7 +246,7 @@ const SpaceList: React.FC<any> = props => {
                                 description={
                                   <div className={styles.spaceCardDesc}>
                                     <p className={styles.descText}>{space.description || '暂无描述'}</p>
-                                    <p className={styles.createTime}>创建于 {space.createTime ? formatDate(space.createTime) : '-'}</p>
+                                    <p className={styles.createTime}>创建于 {space.createTime || '-'}</p>
                                   </div>
                                 }
                             />
@@ -286,7 +284,7 @@ const SpaceList: React.FC<any> = props => {
                           title: '创建时间',
                           dataIndex: 'createTime',
                           width: 220,
-                          render: (time: string) => time ? formatDate(time) : '-',
+                          render: (time: string) => time || '-',
                         },
                         {
                           title: '操作',
