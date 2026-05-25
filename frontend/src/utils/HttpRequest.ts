@@ -1,4 +1,4 @@
-import {} from 'air-design';
+import {Notice} from 'air-design';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
