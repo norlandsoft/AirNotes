@@ -1,6 +1,13 @@
+/**
+ * 文档服务接口
+ *
+ * @author ChaiMingXu
+ * @since 2026/05/25
+ */
 package com.norlandsoft.air.notes.service;
 
-import com.norlandsoft.air.notes.commons.ActionResponse;
+import com.norlandsoft.air.framework.sdk.web.ActionResponse;
+import com.norlandsoft.air.notes.model.dto.DocUpdateDTO;
 import com.norlandsoft.air.notes.model.vo.DocDetailVO;
 import com.norlandsoft.air.notes.model.vo.DocMenuVO;
 import com.norlandsoft.air.notes.model.vo.MindNodeVO;
@@ -14,7 +21,7 @@ public interface WikiDocsService {
 
   ActionResponse<DocDetailVO> getDocumentInfo(String id);
 
-  ActionResponse<DocDetailVO> saveDocument(Map<String, Object> params, String userId);
+  ActionResponse<DocDetailVO> saveDocument(DocUpdateDTO dto, String userId);
 
   ActionResponse<Void> deleteDocument(String id);
 

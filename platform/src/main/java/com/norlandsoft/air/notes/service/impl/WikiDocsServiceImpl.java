@@ -1,10 +1,17 @@
+/**
+ * 文档服务实现
+ *
+ * @author ChaiMingXu
+ * @since 2026/05/25
+ */
 package com.norlandsoft.air.notes.service.impl;
 
-import com.norlandsoft.air.notes.commons.ActionResponse;
-import com.norlandsoft.air.notes.commons.IDGenerator;
-import com.norlandsoft.air.notes.commons.TemplateUtils;
+import com.norlandsoft.air.framework.sdk.util.IDGenerator;
+import com.norlandsoft.air.framework.sdk.util.TemplateUtils;
+import com.norlandsoft.air.framework.sdk.web.ActionResponse;
 import com.norlandsoft.air.notes.mapper.WikiDocMapper;
 import com.norlandsoft.air.notes.mapper.WikiMindMapper;
+import com.norlandsoft.air.notes.model.dto.DocUpdateDTO;
 import com.norlandsoft.air.notes.model.entity.WikiDocument;
 import com.norlandsoft.air.notes.model.entity.WikiDocument.BreadCrumbItem;
 import com.norlandsoft.air.notes.model.entity.WikiMindNode;
@@ -84,14 +91,14 @@ public class WikiDocsServiceImpl implements WikiDocsService {
   }
 
   @Override
-  public ActionResponse<DocDetailVO> saveDocument(Map<String, Object> params, String userId) {
+  public ActionResponse<DocDetailVO> saveDocument(DocUpdateDTO dto, String userId) {
     try {
-      String id = (String) params.get("id");
+      String id = dto.getId();
 
       if (id == null || id.trim().isEmpty()) {
-        return createDocument(params, userId);
+        return createDocument(dto, userId);
       } else {
-        return updateDocument(params);
+        return updateDocument(dto);
       }
     } catch (Exception e) {
       log.error("保存文档失败", e);
@@ -181,14 +188,14 @@ public class WikiDocsServiceImpl implements WikiDocsService {
     }
   }
 
-  private ActionResponse<DocDetailVO> createDocument(Map<String, Object> params, String userId) {
+  private ActionResponse<DocDetailVO> createDocument(DocUpdateDTO dto, String userId) {
     WikiDocument doc = new WikiDocument();
     doc.setId(IDGenerator.shortID());
-    doc.setTitle((String) params.get("title"));
-    doc.setSpace((String) params.get("space"));
-    doc.setParentId((String) params.get("parentId"));
-    doc.setFormat((String) params.get("format"));
-    doc.setFileType((String) params.get("fileType"));
+    doc.setTitle(dto.getTitle());
+    doc.setSpace(dto.getSpace());
+    doc.setParentId(dto.getParentId());
+    doc.setFormat(dto.getFormat());
+    doc.setFileType(dto.getFileType());
     doc.setStatus("A");
     doc.setCreatorId(userId);
     doc.setSortOrder(0);
@@ -216,8 +223,8 @@ public class WikiDocsServiceImpl implements WikiDocsService {
     return ActionResponse.success(toDocDetailVO(doc));
   }
 
-  private ActionResponse<DocDetailVO> updateDocument(Map<String, Object> params) {
-    String id = (String) params.get("id");
+  private ActionResponse<DocDetailVO> updateDocument(DocUpdateDTO dto) {
+    String id = dto.getId();
     WikiDocument existing = docMapper.selectById(id);
     if (existing == null) {
       return ActionResponse.error("990519", "文档不存在，无法更新");
@@ -225,10 +232,10 @@ public class WikiDocsServiceImpl implements WikiDocsService {
 
     WikiDocument doc = new WikiDocument();
     doc.setId(id);
-    doc.setTitle((String) params.get("title"));
-    doc.setIcon((String) params.get("icon"));
-    doc.setContent(params.get("content") != null ? params.get("content").toString() : null);
-    doc.setSortOrder(params.get("sortOrder") != null ? ((Number) params.get("sortOrder")).intValue() : null);
+    doc.setTitle(dto.getTitle());
+    doc.setIcon(dto.getIcon());
+    doc.setContent(dto.getContent());
+    doc.setSortOrder(dto.getSortOrder());
 
     docMapper.update(doc);
 

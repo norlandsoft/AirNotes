@@ -1,8 +1,16 @@
+/**
+ * 工作空间服务实现
+ *
+ * @author ChaiMingXu
+ * @since 2026/05/25
+ */
 package com.norlandsoft.air.notes.service.impl;
 
-import com.norlandsoft.air.notes.commons.ActionResponse;
-import com.norlandsoft.air.notes.commons.IDGenerator;
+import com.norlandsoft.air.framework.sdk.util.IDGenerator;
+import com.norlandsoft.air.framework.sdk.web.ActionResponse;
 import com.norlandsoft.air.notes.mapper.WikiSpaceMapper;
+import com.norlandsoft.air.notes.model.dto.WikiSpaceCreateDTO;
+import com.norlandsoft.air.notes.model.dto.WikiSpaceUpdateDTO;
 import com.norlandsoft.air.notes.model.entity.WikiSpace;
 import com.norlandsoft.air.notes.model.vo.SpaceVO;
 import com.norlandsoft.air.notes.service.WikiSpaceService;
@@ -14,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Service
@@ -24,16 +31,15 @@ public class WikiSpaceServiceImpl implements WikiSpaceService {
   private final WikiSpaceMapper spaceMapper;
 
   @Override
-  public ActionResponse<SpaceVO> createSpace(Map<String, Object> params, String userId) {
+  public ActionResponse<SpaceVO> createSpace(WikiSpaceCreateDTO dto, String userId) {
     try {
       WikiSpace space = new WikiSpace();
       space.setId(IDGenerator.shortID());
-      space.setName((String) params.get("name"));
-      space.setDescription((String) params.get("description"));
-      space.setIcon((String) params.get("icon"));
+      space.setName(dto.getName());
+      space.setDescription(dto.getDescription());
+      space.setIcon(dto.getIcon());
       space.setStatus("A");
       space.setCreatorId(userId);
-      space.setCreatorName((String) params.get("creatorName"));
       space.setCreateTime(LocalDateTime.now());
       space.setUpdateTime(LocalDateTime.now());
 
@@ -46,23 +52,22 @@ public class WikiSpaceServiceImpl implements WikiSpaceService {
   }
 
   @Override
-  public ActionResponse<SpaceVO> updateSpace(Map<String, Object> params) {
+  public ActionResponse<SpaceVO> updateSpace(WikiSpaceUpdateDTO dto) {
     try {
-      String id = (String) params.get("id");
-      if (id == null || id.trim().isEmpty()) {
+      if (dto.getId() == null || dto.getId().trim().isEmpty()) {
         return ActionResponse.error("990501", "空间ID不能为空");
       }
 
       WikiSpace space = new WikiSpace();
-      space.setId(id);
-      space.setName((String) params.get("name"));
-      space.setDescription((String) params.get("description"));
-      space.setIcon((String) params.get("icon"));
-      space.setStatus((String) params.get("status"));
+      space.setId(dto.getId());
+      space.setName(dto.getName());
+      space.setDescription(dto.getDescription());
+      space.setIcon(dto.getIcon());
+      space.setStatus(dto.getStatus());
 
       spaceMapper.update(space);
 
-      WikiSpace updated = spaceMapper.selectById(id);
+      WikiSpace updated = spaceMapper.selectById(dto.getId());
       return ActionResponse.success(toSpaceVO(updated));
     } catch (Exception e) {
       log.error("更新空间失败", e);
@@ -71,9 +76,9 @@ public class WikiSpaceServiceImpl implements WikiSpaceService {
   }
 
   @Override
-  public ActionResponse<List<SpaceVO>> getSpaceList(String userId, Map<String, Object> params) {
+  public ActionResponse<List<SpaceVO>> getSpaceList(String userId, WikiSpaceCreateDTO dto) {
     try {
-      String name = params != null ? (String) params.get("name") : null;
+      String name = dto != null ? dto.getName() : null;
       List<WikiSpace> spaces = spaceMapper.selectByCondition(name);
       List<SpaceVO> result = new ArrayList<>();
       for (WikiSpace space : spaces) {
