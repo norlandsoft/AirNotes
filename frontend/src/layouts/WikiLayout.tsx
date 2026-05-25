@@ -3,10 +3,12 @@ import {connect} from 'umi';
 import {Spin} from 'air-design';
 import Login from '@/pages/Login';
 import Wiki from '@/pages/Wiki';
+import SettingsPage from '@/pages/Admin/Settings';
 import HeadBar from './HeadBar';
 
 const WikiLayout: React.FC<any> = props => {
   const {dispatch, user, layoutSize, frameSize} = props;
+  const isAdmin = user.currentUser?.id === 'admin';
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,14 +35,14 @@ const WikiLayout: React.FC<any> = props => {
 
   return (
     <>
-      <HeadBar height={layoutSize.headerHeight}/>
+      <HeadBar height={layoutSize.headerHeight} isAdmin={isAdmin}/>
       <div style={{
         position: 'fixed',
         top: layoutSize.headerHeight,
         width: frameSize.width,
         height: frameSize.height
       }}>
-        <Wiki/>
+        {isAdmin ? <SettingsPage/> : <Wiki/>}
       </div>
     </>
   );

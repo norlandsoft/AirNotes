@@ -8,7 +8,7 @@ import SpaceDropdownMenu from '@/pages/Wiki/components/SpaceDropdownMenu';
 import './HeadBar.less';
 
 const HeadBar: React.FC<any> = props => {
-  const {dispatch, currentUser, height} = props;
+  const {dispatch, currentUser, height, isAdmin} = props;
 
   const [fullScreen, setFullScreen] = useState(false);
   const [showUserPanel, setShowUserPanel] = useState(false);
@@ -87,7 +87,7 @@ const HeadBar: React.FC<any> = props => {
           </svg>
           <span>AirNotes</span>
         </div>
-        <SpaceDropdownMenu/>
+        {isAdmin ? <span style={{fontSize: '0.9rem', color: 'var(--text-secondary)'}}>平台管理</span> : <SpaceDropdownMenu/>}
       </div>
 
       <div className="air-layout-head-right">

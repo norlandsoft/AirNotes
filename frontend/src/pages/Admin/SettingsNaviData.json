@@ -1,0 +1,11 @@
+[
+  {
+    "key": "storage-group",
+    "label": "数据存储",
+    "type": "group",
+    "children": [
+      { "key": "database", "label": "Database", "type": "item" },
+      { "key": "redis", "label": "Redis", "type": "item" }
+    ]
+  }
+]
