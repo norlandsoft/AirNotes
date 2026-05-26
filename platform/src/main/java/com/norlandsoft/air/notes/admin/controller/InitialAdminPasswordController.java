@@ -2,7 +2,7 @@ package com.norlandsoft.air.notes.admin.controller;
 
 import com.norlandsoft.air.framework.sdk.web.ActionResponse;
 import com.norlandsoft.air.framework.sdk.app.AppManager;
-import com.norlandsoft.air.framework.sdk.storage.EmbeddedStorage;
+import com.norlandsoft.air.framework.sdk.admin.AdminAuthService;
 import com.norlandsoft.air.framework.sdk.util.CryptoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ import java.security.SecureRandom;
  *
  * 提供 admin 密码初始化接口，仅在首次初始化时可用；
  * 若密码文件已存在则无法重置。密码保存到工作目录 secret/password，
- * 并写入嵌入式存储供后续 admin 登录与 session 管理使用。
+ * 通过 AdminAuthService 写入嵌入式存储供后续 admin 登录与 session 管理使用。
  *
  * 访问：GET /initialAdminPassword
  *
@@ -31,7 +31,12 @@ import java.security.SecureRandom;
 @Slf4j
 public class InitialAdminPasswordController {
 
-  private static final String ADMIN_PASSWORD_KEY = "admin.password";
+  private final AdminAuthService adminAuthService;
+
+  public InitialAdminPasswordController(AdminAuthService adminAuthService) {
+    this.adminAuthService = adminAuthService;
+  }
+
   private static final String SECRET_DIR = "secret";
   private static final String PASSWORD_FILE = "password";
 
@@ -86,7 +91,7 @@ public class InitialAdminPasswordController {
         log.warn("设置密码文件权限失败（不影响功能）: {}", e.getMessage());
       }
 
-      boolean storageOk = EmbeddedStorage.getInstance().put(ADMIN_PASSWORD_KEY, encryptedPassword);
+      boolean storageOk = adminAuthService.initAdminPassword(encryptedPassword);
       if (!storageOk) {
         log.warn("密码文件已保存，但嵌入式存储保存失败，请检查存储状态");
       }

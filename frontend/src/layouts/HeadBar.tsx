@@ -3,7 +3,7 @@ import {connect} from 'umi';
 import {Avatar} from 'air-design';
 import {Dialog, Icon, SlidePanel} from 'air-design';
 import screenfull from 'screenfull';
-import {SHA256} from 'crypto-js';
+import {SHA} from 'air-auth';
 import SpaceDropdownMenu from '@/pages/Wiki/components/SpaceDropdownMenu';
 import './HeadBar.less';
 
@@ -59,10 +59,10 @@ const HeadBar: React.FC<any> = props => {
       return;
     }
     dispatch({
-      type: 'user/changePassword',
+      type: 'user/changeAdminPassword',
       payload: {
-        oldPassword: SHA256(oldPassword).toString(),
-        newPassword: SHA256(newPassword).toString()
+        oldPassword: SHA(oldPassword),
+        newPassword: SHA(newPassword)
       },
       callback: (resp: any) => {
         if (resp.success) {
