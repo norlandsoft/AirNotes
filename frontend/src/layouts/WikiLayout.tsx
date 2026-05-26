@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {connect} from 'umi';
 import {Spin} from 'air-design';
 import Login from '@/pages/Login';
@@ -9,6 +9,11 @@ import HeadBar from './HeadBar';
 const WikiLayout: React.FC<any> = props => {
   const {dispatch, user, layoutSize, frameSize} = props;
   const isAdmin = user.currentUser?.id === 'admin';
+  const dispatchRef = useRef(dispatch);
+
+  useEffect(() => {
+    dispatchRef.current = dispatch;
+  }, [dispatch]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -23,6 +28,18 @@ const WikiLayout: React.FC<any> = props => {
     if (user.isAuthenticated) {
       dispatch({type: 'user/validateToken'});
     }
+  }, []);
+
+  // 监听认证状态变化事件（由 HttpRequest 401 处理触发）
+  useEffect(() => {
+    const handleAuthChange = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail && !detail.authenticated) {
+        dispatchRef.current({type: 'user/clearUser'});
+      }
+    };
+    window.addEventListener('auth-state-changed', handleAuthChange);
+    return () => window.removeEventListener('auth-state-changed', handleAuthChange);
   }, []);
 
   if (user.isAuthenticated === false) {

@@ -27,6 +27,13 @@ export default defineConfig({
         proxyRes.headers['Content-Encoding'] = 'chunked';
       }
     },
+    "/api": {
+      target: "http://localhost:6600",
+      changeOrigin: true,
+      'onProxyRes': function (proxyRes: any) {
+        proxyRes.headers['Content-Encoding'] = 'chunked';
+      }
+    },
     "/admin": {
       target: "http://localhost:6600",
       changeOrigin: true,

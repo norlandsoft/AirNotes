@@ -1,4 +1,5 @@
 import {POST} from "@/utils/HttpRequest";
+import sha256 from 'crypto-js/sha256';
 
 export default {
   namespace: 'user',
@@ -11,10 +12,13 @@ export default {
     * login({payload}, {put}) {
       yield put({type: 'setLoading', payload: true});
 
-      // admin 用户走管理后台登录，其他用户走 SSO 登录
       const isAdmin = payload.id && payload.id.trim().toLowerCase() === 'admin';
-      const loginUrl = isAdmin ? '/admin/user/login' : '/rest/auth/login';
-      const resp = yield POST(loginUrl, payload);
+      const loginUrl = isAdmin ? '/admin/user/login' : '/api/v1/auth/login';
+      const loginPayload = {
+        id: payload.id,
+        password: sha256(payload.password).toString()
+      };
+      const resp = yield POST(loginUrl, loginPayload);
 
       yield put({type: 'setLoading', payload: false});
 
@@ -37,7 +41,7 @@ export default {
         return;
       }
 
-      const resp = yield POST("/rest/auth/current");
+      const resp = yield POST("/api/v1/auth/current");
       if (resp.success) {
         yield put({type: 'setUser', payload: resp.data});
       } else {
