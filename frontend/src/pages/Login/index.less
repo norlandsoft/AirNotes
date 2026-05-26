@@ -1,99 +1,208 @@
+/* 登录页面样式 — 暖琥珀色调星野风格 */
+
+/* 变量 — 暖琥珀色调（区别于 AirDirector 的青碧色调） */
+@bg-base: #0c0804;
+@accent: #c17f3e;
+@accent-glow: rgba(193, 127, 62, 0.25);
+@card-bg: rgba(255, 255, 255, 0.97);
+@text-hint: #94a3b8;
+@input-bg: #f8f9fb;
+@input-hover: #f1f3f6;
+@input-border: #e5e7eb;
+@radius: 14px;
+@radius-sm: 8px;
+@ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+/* 页面容器 */
 .air-login-page {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
-  background: #f7f6f3;
+  justify-content: center;
+  min-height: 100vh;
+  background: @bg-base;
+  position: relative;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'PingFang SC', 'Noto Sans SC', 'Helvetica Neue', sans-serif;
 }
 
+/* 星野Canvas */
+.air-login-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 登录卡片 */
 .air-login-card {
   width: 380px;
-  padding: 48px 40px 40px;
-  background: #fff;
-  border: 1px solid #e5e4e0;
-  border-radius: 3px;
+  position: relative;
+  z-index: 1;
+  background: @card-bg;
+  border-radius: @radius;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 2px 8px rgba(0, 0, 0, 0.12),
+    0 20px 50px rgba(0, 0, 0, 0.2),
+    0 0 120px rgba(193, 127, 62, 0.04);
+  padding: 48px 40px;
+  animation: cardIn 0.6s @ease;
 }
 
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 头部：Logo居中 */
 .air-login-header {
+  text-align: center;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  gap: 10px;
+}
+
+.air-login-logo-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: -0.02em;
+}
+
+.air-login-tagline {
+  text-align: center;
+  margin-bottom: 32px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: #a09080;
+}
+
+/* 表单输入框 */
+.air-login-card {
+  .air-form-item {
+    margin-bottom: 16px;
+  }
+
+  .air-form-item-explain-error {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .air-input {
+    border-radius: @radius-sm;
+    background: @input-bg;
+    border: 1px solid transparent;
+    font-size: 14px;
+    height: 40px;
+    padding: 0 14px;
+    transition: all 0.2s ease;
+
+    &::placeholder {
+      color: @text-hint;
+    }
+
+    &:hover {
+      background: @input-hover;
+    }
+
+    &.air-input-focused {
+      background: #fff;
+      border-color: @input-border;
+      box-shadow: 0 0 0 3px rgba(193, 127, 62, 0.06);
+    }
+  }
+
+  .air-input-affix-wrapper {
+    border-radius: @radius-sm;
+    background: @input-bg;
+    border: 1px solid transparent;
+    font-size: 14px;
+    height: 40px !important;
+    padding: 0 14px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: @input-hover;
+    }
+
+    &.air-input-affix-wrapper-focused {
+      background: #fff;
+      border-color: @input-border;
+      box-shadow: 0 0 0 3px rgba(193, 127, 62, 0.06);
+    }
+  }
+
+  .air-input-password .air-input {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    height: auto;
+    padding: 0;
+  }
+
+  .air-input-suffix {
+    color: @text-hint;
+  }
+}
+
+/* 登录按钮容器 */
+.air-login-btn-item {
+  margin-top: 24px;
   margin-bottom: 0;
 }
 
-.air-login-title {
-  font-family: var(--font-family);
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1a1a1a;
-  letter-spacing: -0.02em;
-  margin: 0;
-}
-
-.air-login-divider {
-  height: 1px;
-  background: #e5e4e0;
-  margin: 24px 0 28px;
-}
-
-.air-login-form {
-  .ant-form-item {
-    margin-bottom: 20px;
-
-    &:last-child {
-      margin-bottom: 0;
-      margin-top: 28px;
-    }
-  }
-
-  .ant-input-affix-wrapper,
-  .ant-input {
-    height: 44px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-    font-family: var(--font-family);
-    font-size: 0.95rem;
-    color: #333;
-
-    &:hover {
-      border-color: #bbb;
-    }
-
-    &:focus,
-    &-focused {
-      border-color: #555 !important;
-      box-shadow: none !important;
-    }
-  }
-
-  .ant-input-prefix,
-  .ant-input-suffix {
-    color: #999;
-  }
-}
-
+/* 登录按钮 */
 .air-login-btn {
-  height: 44px;
-  font-family: var(--font-family);
-  font-size: 0.95rem;
+  height: 40px;
+  width: 100%;
+  color: white;
+  font-size: 14px;
   font-weight: 500;
-  letter-spacing: 0.05em;
-  background: #1a1a1a;
-  border: none;
+  letter-spacing: 1.5px;
   border-radius: 3px;
-  color: #fff;
+  background: @accent;
+  border: none;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: box-shadow 0.2s ease;
 
-  &:hover {
-    background: #333 !important;
+  &:hover, &:focus {
+    background: @accent;
+    box-shadow: 0 2px 12px @accent-glow;
   }
 
   &:active {
-    background: #000 !important;
+    background: @accent;
+    box-shadow: none;
   }
 
   &:disabled {
-    background: #999 !important;
+    background: #999;
+    cursor: not-allowed;
+    box-shadow: none;
   }
+}
+
+/* 底部版权 */
+.air-login-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 24px 0;
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  z-index: 1;
 }
