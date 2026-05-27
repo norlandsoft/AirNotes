@@ -3,7 +3,7 @@ import {connect} from 'umi';
 import {Avatar} from 'air-design';
 import {Dialog, Icon, SlidePanel} from 'air-design';
 import screenfull from 'screenfull';
-import {SHA} from 'air-auth';
+import {SHA, AppSwitcher} from 'air-auth';
 import SpaceDropdownMenu from '@/pages/Wiki/components/SpaceDropdownMenu';
 import './HeadBar.less';
 
@@ -79,6 +79,7 @@ const HeadBar: React.FC<any> = props => {
   return (
     <div className="air-layout-head" style={{height, width: window.innerWidth}}>
       <div className="air-layout-head-content">
+            <AppSwitcher/>
         <div className="air-layout-head-title">
           <svg viewBox="0 0 24 24" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.75 3.5V2C8.75 1.59 8.41 1.25 8 1.25C7.59 1.25 7.25 1.59 7.25 2V3.56C7.5 3.53 7.73 3.5 8 3.5H8.75Z" fill="currentColor"/>
@@ -166,6 +167,7 @@ const HeadBar: React.FC<any> = props => {
   );
 };
 
-export default connect(({user}) => ({
-  currentUser: user.currentUser
+export default connect(({user, global}: any) => ({
+  currentUser: user.currentUser,
+  layoutSize: global.layoutSize,
 }))(HeadBar);
