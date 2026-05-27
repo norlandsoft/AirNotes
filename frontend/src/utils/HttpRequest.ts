@@ -281,7 +281,13 @@ export async function POST(url: string | URL | Request, params: any) {
 
           // 判断返回数据是否为 JSON 格式
           if (res.headers.get('Content-Type')?.indexOf('application/json') !== -1) {
-            return res.json().then(resolve);
+            return res.json().then(resolve).catch(err => {
+              return resolve({
+                success: false,
+                code: 'PARSE_ERROR',
+                message: '响应数据解析失败: ' + (err?.message || '未知错误')
+              });
+            });
           } else if (res.headers.get('Content-Type')?.indexOf('application/octet-stream') !== -1) {
             // 处理文件下载
             return res.blob().then(blob => {
@@ -304,6 +310,11 @@ export async function POST(url: string | URL | Request, params: any) {
           }
         default:
           Notice.error(`HTTP ${res.status}`, codeMessage[res.status] || `HTTP ${res.status}`);
+          return resolve({
+            success: false,
+            code: `HTTP-${res.status}`,
+            message: codeMessage[res.status] || `HTTP ${res.status}`
+          });
       }
     }).catch(err => {
       Notice.error('网络错误', err.message);

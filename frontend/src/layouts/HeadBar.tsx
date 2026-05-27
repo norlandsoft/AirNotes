@@ -77,7 +77,7 @@ const HeadBar: React.FC<any> = props => {
   const inputStyle = {width: '100%', padding: '8px', border: '1px solid #d9d9d9', borderRadius: '4px'};
 
   return (
-    <div className="air-layout-head" style={{height, width: window.innerWidth}}>
+    <div className="air-layout-head" style={{height}}>
       <div className="air-layout-head-content">
             <AppSwitcher/>
         <div className="air-layout-head-title">
@@ -117,8 +117,8 @@ const HeadBar: React.FC<any> = props => {
             <Avatar size={64} className="air-frame-user-panel-info-avatar">
               {currentUser?.name?.charAt(0) || 'U'}
             </Avatar>
-            <div className="air-frame-user-panel-info-name">{currentUser?.name || currentUser?.id}</div>
-            <div className="air-frame-user-panel-info-id">#{currentUser?.id}</div>
+            <div className="air-frame-user-panel-info-name">{currentUser?.name || currentUser?.loginId || '未知用户'}</div>
+            <div className="air-frame-user-panel-info-id">#{currentUser?.loginId || currentUser?.id}</div>
             <div className="air-frame-user-panel-info-close" onClick={() => setShowUserPanel(false)}>
               <Icon name="close" size={14}/>
             </div>

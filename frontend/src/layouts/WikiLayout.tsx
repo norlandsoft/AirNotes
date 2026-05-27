@@ -16,6 +16,7 @@ import React, { useEffect, useRef } from 'react';
 import { connect } from 'umi';
 import { Spin } from 'air-design';
 import { Login, storageKey } from 'air-auth';
+import '@/suppressWarnings';
 import HeadBar from './HeadBar';
 import Wiki from '@/pages/Wiki';
 import SettingsPage from '@/pages/Admin/Settings';
