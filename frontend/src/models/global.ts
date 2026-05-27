@@ -1,4 +1,4 @@
-const HEADER_HEIGHT = 50;
+const HEADER_HEIGHT = 40;
 
 export default {
   namespace: 'global',
