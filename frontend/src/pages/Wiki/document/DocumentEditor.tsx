@@ -1,9 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {connect} from "umi";
-import {Icon, IconButton, Notice} from 'air-design';
-import {Spin} from 'air-design';
-import {RichEditor} from 'air-design';
-import {Breadcrumb} from 'air-design';
+import {Breadcrumb, RichEditor, Icon, IconButton, Notice, Spin} from 'air-design';
 import {findImageNodes} from "../components/DocImage";
 import './DocumentEditor.less';
 
@@ -54,7 +51,13 @@ const DocumentEditor: React.FC<any> = props => {
           setCurrentBreadCrumbs(newBreadcrumbs);
 
           // 设置编辑器内容
-          data.content = JSON.parse(data.content);
+          if (data.content) {
+            try {
+              data.content = JSON.parse(data.content);
+            } catch (e) {
+              data.content = null;
+            }
+          }
           editorRef.current?.setContent({
             content: data.content,
             title: data.title,
@@ -163,16 +166,14 @@ const DocumentEditor: React.FC<any> = props => {
           <div style={{display: 'flex', alignItems: 'center', gap: '4px', marginLeft: '1rem'}}>
             <Icon name='note' size={18}/>
             {/* 面包屑 */}
-            <Breadcrumb className="air-wiki-document-editor-breadcrumb" compact={false}>
-              <Breadcrumb.Item key={'000000'}
-                               onClick={() => handleChangePage('000000')}>{currentSpace.name}</Breadcrumb.Item>
-              {
-                  currentBreadCrumbs && currentBreadCrumbs.map((item: any) => (
-                      <Breadcrumb.Item key={item.key}
-                                       onClick={() => handleChangePage(item.key)}>{item.label}</Breadcrumb.Item>
-                  ))
-              }
-            </Breadcrumb>
+            <Breadcrumb className="air-wiki-document-editor-breadcrumb" items={[
+              { key: '000000', title: currentSpace?.name, onClick: () => handleChangePage('000000') },
+              ...(currentBreadCrumbs || []).map((item: any) => ({
+                key: item.key,
+                title: item.label,
+                onClick: () => handleChangePage(item.key)
+              }))
+            ]}/>
           </div>
           <div style={{marginRight: '1rem'}}>
             {
@@ -191,7 +192,8 @@ const DocumentEditor: React.FC<any> = props => {
           </div>
         </div>
         <div className={'air-wiki-document-editor-content'}>
-          <Spin spinning={docInfoLoading}>
+          {docInfoLoading && <Spin label="加载中..."/>}
+          <div style={{visibility: docInfoLoading ? 'hidden' : 'visible'}}>
             <RichEditor
                 ref={editorRef}
                 docId={currentDocument.id}
@@ -204,7 +206,7 @@ const DocumentEditor: React.FC<any> = props => {
                 simpleMode={false}
                 fixedHeight={editable}
             />
-          </Spin>
+          </div>
         </div>
       </div>
   );
