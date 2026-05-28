@@ -14,7 +14,7 @@ import {connect} from 'umi';
 import {Avatar} from 'air-design';
 import {Dialog, Icon, SlidePanel} from 'air-design';
 import screenfull from 'screenfull';
-import {SHA, AppSwitcher} from 'air-auth';
+import {SHA, AppSwitcher, UserSettings} from 'air-auth';
 import {getAvatarUrl} from '@/utils/UserUtils';
 import SpaceDropdownMenu from '@/pages/Wiki/components/SpaceDropdownMenu';
 import './HeadBar.less';
@@ -25,6 +25,7 @@ const HeadBar: React.FC<any> = props => {
   const [fullScreen, setFullScreen] = useState(false);
   const [showUserPanel, setShowUserPanel] = useState(false);
   const [showPasswordPanel, setShowPasswordPanel] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   // 修改密码
   const [oldPassword, setOldPassword] = useState('');
@@ -143,10 +144,19 @@ const HeadBar: React.FC<any> = props => {
               </div>
             </div>
             <div className="air-frame-user-panel-ops" onClick={() => setShowUserPanel(false)}>
-              <div className="air-frame-user-panel-ops-item" onClick={() => setShowPasswordPanel(true)}>
-                <Icon name="key" size={20}/>
-                <div className="air-frame-user-panel-ops-item-text">修改密码</div>
-              </div>
+              {currentUser?.loginId === 'admin' ? (
+                /* admin 用户 - 显示修改密码 */
+                <div className="air-frame-user-panel-ops-item" onClick={() => setShowPasswordPanel(true)}>
+                  <Icon name="key" size={20}/>
+                  <div className="air-frame-user-panel-ops-item-text">修改密码</div>
+                </div>
+              ) : (
+                /* 非 admin 用户 - 显示用户设置 */
+                <div className="air-frame-user-panel-ops-item" onClick={() => setShowSettings(true)}>
+                  <Icon name="settings" size={20}/>
+                  <div className="air-frame-user-panel-ops-item-text">用户设置</div>
+                </div>
+              )}
               <div className="air-frame-user-panel-ops-hr"/>
               <div className="air-frame-user-panel-ops-item" onClick={handleLogout}>
                 <Icon name="exit" size={20}/>
@@ -183,6 +193,9 @@ const HeadBar: React.FC<any> = props => {
             {passwordError && <div style={{color: '#ff4d4f', fontSize: '14px'}}>{passwordError}</div>}
           </div>
         </SlidePanel>
+
+        {/* 非 admin 用户的设置面板 */}
+        <UserSettings visible={showSettings} onClose={() => setShowSettings(false)} />
       </div>
   );
 };

@@ -25,6 +25,8 @@ export default {
     isAuthenticated: !!sessionStorage.getItem(storageKey('token')),
     loading: false,
     validatingToken: false,
+    userSettings: null as any,
+    userSettingsLoading: false,
   },
 
   effects: {
@@ -134,6 +136,54 @@ export default {
       const resp = yield call(POST, '/admin/user/changePassword', changeDTO);
       if (callback) callback(resp);
     },
+
+    /**
+     * 获取用户设置
+     *
+     * 非 admin 用户通过此接口获取个人设置信息。
+     */
+    * fetchUserSettings({ payload }: any, { call, put }: any) {
+      yield put({ type: 'setUserSettingsLoading', payload: true });
+      try {
+        const resp = yield call(POST, '/api/v1/user/settings/get', { userId: payload.userId });
+        if (resp?.success) {
+          yield put({ type: 'setUserSettings', payload: resp.data });
+        }
+      } finally {
+        yield put({ type: 'setUserSettingsLoading', payload: false });
+      }
+    },
+
+    /**
+     * 更新用户设置
+     *
+     * 非 admin 用户通过此接口更新个人设置信息。
+     */
+    * updateUserSettings({ payload, callback }: any, { call, put }: any) {
+      const resp = yield call(POST, '/api/v1/user/settings/update', payload);
+      if (callback) callback(resp);
+      if (resp?.success) {
+        yield put({ type: 'setUserSettings', payload: resp.data });
+      }
+    },
+
+    /**
+     * 非 admin 用户修改密码
+     *
+     * 对密码进行 SHA 哈希后提交修改，成功后提示并退出登录。
+     */
+    * changePassword({ payload, callback }: any, { call, put }: any) {
+      const changeDTO = { ...payload };
+      if (changeDTO.password?.trim()) {
+        changeDTO.password = SHA(changeDTO.password);
+      }
+      const resp = yield call(POST, '/api/v1/user/password', changeDTO);
+      if (callback) callback(resp);
+      if (resp?.success) {
+        Notice.success('修改成功', '密码已更新，请重新登录');
+        yield put({ type: 'logout' });
+      }
+    },
   },
 
   reducers: {
@@ -149,6 +199,12 @@ export default {
     },
     setValidatingToken(state: any, { payload }: any) {
       return { ...state, validatingToken: payload };
+    },
+    setUserSettings(state: any, { payload }: any) {
+      return { ...state, userSettings: payload };
+    },
+    setUserSettingsLoading(state: any, { payload }: any) {
+      return { ...state, userSettingsLoading: payload };
     },
   },
 };

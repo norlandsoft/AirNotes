@@ -23,6 +23,7 @@ import SettingsPage from '@/pages/Admin/Settings';
 
 const WikiLayout: React.FC<any> = props => {
   const { dispatch, user, layoutSize, frameSize } = props;
+  const { userSettings, userSettingsLoading } = user;
   const hasCheckedRef = useRef(false);
   const dispatchRef = useRef(dispatch);
   const isAdmin = user.currentUser?.id === 'admin';
@@ -76,6 +77,28 @@ const WikiLayout: React.FC<any> = props => {
     return () => window.removeEventListener('resize', handleResize);
   }, [dispatch]);
 
+  // 非 admin 用户登录后加载用户设置
+  useEffect(() => {
+    if (user.currentUser?.id && user.currentUser.loginId !== 'admin') {
+      dispatch({ type: 'user/fetchUserSettings', payload: { userId: user.currentUser.id } });
+    }
+  }, [user.currentUser?.id, dispatch]);
+
+  // 应用用户字体大小设置
+  useEffect(() => {
+    if (userSettings && !userSettingsLoading && userSettings.settings) {
+      try {
+        const displaySettings = JSON.parse(userSettings.settings);
+        const fontSize = displaySettings.fontSize || 16;
+        document.documentElement.style.fontSize = `${fontSize}px`;
+      } catch {
+        document.documentElement.style.fontSize = '16px';
+      }
+    } else if (!userSettingsLoading) {
+      document.documentElement.style.fontSize = '16px';
+    }
+  }, [userSettings, userSettingsLoading]);
+
   // 正在验证 token 时显示全屏加载
   if (user.validatingToken) {
     return <Spin spinning={true} fullscreen={true} description="正在验证身份..." />;
@@ -106,4 +129,6 @@ export default connect(({ user, global }: any) => ({
   user,
   layoutSize: global.layoutSize,
   frameSize: global.frameSize,
+  userSettings: user.userSettings,
+  userSettingsLoading: user.userSettingsLoading,
 }))(WikiLayout);
