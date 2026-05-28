@@ -184,6 +184,21 @@ export default {
         yield put({ type: 'logout' });
       }
     },
+
+    /**
+     * 更新用户信息
+     *
+     * 调用 /api/v1/user/update 接口更新当前用户的基本信息，
+     * 成功后通过 setUser 更新本地状态。
+     */
+    * updateUserInfo({ payload, callback }: any, { call, put }: any) {
+      const resp = yield call(POST, '/api/v1/user/update', payload);
+      if (callback) callback(resp);
+      if (resp?.success) {
+        Notice.success('保存成功');
+        yield put({ type: 'setUser', payload: resp.data });
+      }
+    },
   },
 
   reducers: {
