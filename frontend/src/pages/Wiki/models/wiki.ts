@@ -1,4 +1,4 @@
-import {POST} from "@/utils/HttpRequest";
+import {POST} from 'air-auth';
 
 export default {
   namespace: 'wiki',

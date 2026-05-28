@@ -1,4 +1,4 @@
-import {POST} from '@/utils/HttpRequest';
+import {POST} from 'air-auth';
 
 /**
  * PaaS 配置 DVA model

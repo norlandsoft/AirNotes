@@ -10,6 +10,7 @@ import '../auth.config';
 import {UserModel} from 'air-auth';
 
 const model = {
+  namespace: 'user',
   ...UserModel,
 };
 

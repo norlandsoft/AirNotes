@@ -14,8 +14,7 @@ import {connect} from 'umi';
 import {Avatar} from 'air-design';
 import {Dialog, Icon, SlidePanel} from 'air-design';
 import screenfull from 'screenfull';
-import {SHA, AppSwitcher, UserSettings} from 'air-auth';
-import {getAvatarUrl} from '@/utils/UserUtils';
+import {SHA, AppSwitcher, UserSettings, getAvatarUrl} from 'air-auth';
 import SpaceDropdownMenu from '@/pages/Wiki/components/SpaceDropdownMenu';
 import './HeadBar.less';
 
