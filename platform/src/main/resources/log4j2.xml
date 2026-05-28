@@ -32,6 +32,7 @@
     <logger name="reactor.netty" level="error"/>
     <logger name="io.lettuce.core" level="error"/>
     <logger name="software.amazon.awssdk" level="error"/>
+    <logger name="com.norlandsoft.air.notes.mapper" level="error"/>
   </loggers>
 
 </configuration>
