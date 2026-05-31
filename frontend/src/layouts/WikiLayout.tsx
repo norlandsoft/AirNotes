@@ -14,12 +14,13 @@
  */
 import React, { useEffect, useRef } from 'react';
 import { connect } from 'umi';
-import { Spin } from 'air-design';
+import { ConfigProvider, Spin } from 'air-design';
 import { Login, storageKey } from 'air-auth';
 import '@/suppressWarnings';
 import HeadBar from './HeadBar';
 import Wiki from '@/pages/Wiki';
 import SettingsPage from '@/pages/Admin/Settings';
+import zhCN from 'antd/es/locale/zh_CN';
 
 const WikiLayout: React.FC<any> = props => {
   const { dispatch, user, layoutSize, frameSize } = props;
@@ -111,7 +112,10 @@ const WikiLayout: React.FC<any> = props => {
 
   // 已认证则渲染 Wiki 内容
   return (
-    <>
+    <ConfigProvider
+      prefixCls="air"
+      locale={zhCN}
+    >
       <HeadBar height={layoutSize.headerHeight} isAdmin={isAdmin} />
       <div style={{
         position: 'fixed',
@@ -121,7 +125,7 @@ const WikiLayout: React.FC<any> = props => {
       }}>
         {isAdmin ? <SettingsPage /> : <Wiki />}
       </div>
-    </>
+    </ConfigProvider>
   );
 };
 
